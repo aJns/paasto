@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Paasto</string>
+    <string name="fastStart">Aloita Paasto</string>
+    <string name="fastStop">Lopeta Paasto</string>
+    <string name="numInvalid">--</string>
+    <string name="timerFormat">%03d : %02d : %02d</string>
+</resources>

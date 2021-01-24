@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <View
+        android:id="@+id/outerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/primaryLightColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
+
+    <View
+        android:id="@+id/titleView"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:background="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/outerView"
+        app:layout_constraintEnd_toEndOf="@+id/titleView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleView" />
+
+    <TextView
+        android:id="@+id/fastTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/numInvalid"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/fastButton"
+        app:layout_constraintEnd_toEndOf="@+id/innerView"
+        app:layout_constraintStart_toStartOf="@+id/innerView"
+        app:layout_constraintTop_toTopOf="@+id/innerView" />
+
+    <Button
+        android:id="@+id/fastButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="fastButtonClicked"
+        android:text="@string/fastStart"
+        app:layout_constraintBottom_toBottomOf="@+id/innerView"
+        app:layout_constraintEnd_toEndOf="@+id/innerView"
+        app:layout_constraintStart_toStartOf="@+id/innerView" />
+
+    <View
+        android:id="@+id/innerView"
+        android:layout_width="222dp"
+        android:layout_height="190dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/outerView"
+        app:layout_constraintTop_toTopOf="@+id/outerView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
