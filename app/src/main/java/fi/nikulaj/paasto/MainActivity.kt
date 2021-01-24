@@ -8,8 +8,15 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.room.Room
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        var db: AppDatabase? = null
+        fun getDatabase(): AppDatabase? {
+            return db
+        }
+    }
 
     lateinit var fastTime: TextView
     lateinit var fastButton: Button
@@ -21,6 +28,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (db == null) {
+            db =
+                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
+        }
 
         fastTime = findViewById(R.id.fastTime)
         fastButton = findViewById(R.id.fastButton)

@@ -1,28 +1,27 @@
 package fi.nikulaj.paasto
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
-class MainViewModel(appContext: Context) : ViewModel() {
+class MainViewModel : ViewModel() {
 
     var fastStart: Long? = null
-
-    val mainModel by lazy {
-        MainModel(appContext)
-    }
 
     val buttonState: MutableLiveData<FastState> by lazy {
         MutableLiveData<FastState>()
     }
 
     fun checkState() {
-        if (mainModel.hasOngoingFast()) {
-            fastStart = mainModel.getOngoingFastStart()
-            buttonState.postValue(FastState.FAST)
-        } else {
-            fastStart = null
-            buttonState.postValue(FastState.EAT)
+        viewModelScope.launch {
+            if (MainModel.hasOngoingFast()) {
+                fastStart = MainModel.getOngoingFastStart()
+                buttonState.postValue(FastState.FAST)
+            } else {
+                fastStart = null
+                buttonState.postValue(FastState.EAT)
+            }
         }
     }
 
@@ -35,13 +34,15 @@ class MainViewModel(appContext: Context) : ViewModel() {
     }
 
     fun startStopFast() {
-        val currentTime = System.currentTimeMillis()
-        if (mainModel.hasOngoingFast()) {
-            mainModel.stopFastAt(currentTime)
-        } else {
-            mainModel.startFastAt(currentTime)
+        viewModelScope.launch {
+            val currentTime = System.currentTimeMillis()
+            if (MainModel.hasOngoingFast()) {
+                MainModel.stopFastAt(currentTime)
+            } else {
+                MainModel.startFastAt(currentTime)
+            }
+            checkState()
         }
-        checkState()
     }
 
 }
