@@ -9,9 +9,9 @@ enum class FastState {
 
 @Entity
 data class Fast(
-    @PrimaryKey(autoGenerate = true) val uid: Int?,
-    @ColumnInfo(name = "start_time") val startTime: Long,
-    @ColumnInfo(name = "end_time") var stopTime: Long?
+        @PrimaryKey(autoGenerate = true) val uid: Int?,
+        @ColumnInfo(name = "start_time") val startTime: Long,
+        @ColumnInfo(name = "end_time") var stopTime: Long?
 )
 
 @Dao

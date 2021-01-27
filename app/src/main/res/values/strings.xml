@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Paasto</string>
-    <string name="fastStart">Aloita Paasto</string>
-    <string name="fastStop">Lopeta Paasto</string>
-    <string name="numInvalid">--</string>
-    <string name="timerFormat">%03d : %02d : %02d</string>
+    <string name="fast_start">Aloita Paasto</string>
+    <string name="fast_stop">Lopeta Paasto</string>
+    <string name="num_invalid">--</string>
+    <string name="timer_format">%02d : %02d : %02d</string>
+    <string name="confirm_fast_end">Haluatko varmasti lopettaa paastosi?</string>
+    <string name="yes">Kyllä</string>
+    <string name="cancel">Peruuta</string>
 </resources>

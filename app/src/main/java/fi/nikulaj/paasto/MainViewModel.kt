@@ -7,7 +7,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    var fastStart: Long? = null
+    private var fastStart: Long? = null
+    private var fastOngoing: Boolean? = null
 
     val buttonState: MutableLiveData<FastState> by lazy {
         MutableLiveData<FastState>()
@@ -18,9 +19,11 @@ class MainViewModel : ViewModel() {
             if (MainModel.hasOngoingFast()) {
                 fastStart = MainModel.getOngoingFastStart()
                 buttonState.postValue(FastState.FAST)
+                fastOngoing = true
             } else {
                 fastStart = null
                 buttonState.postValue(FastState.EAT)
+                fastOngoing = false
             }
         }
     }
@@ -31,6 +34,10 @@ class MainViewModel : ViewModel() {
         } else {
             null
         }
+    }
+
+    fun hasOngoingFast(): Boolean? {
+        return fastOngoing
     }
 
     fun startStopFast() {

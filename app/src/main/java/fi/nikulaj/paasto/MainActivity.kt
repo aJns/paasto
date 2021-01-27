@@ -1,11 +1,13 @@
 package fi.nikulaj.paasto
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.room.Room
@@ -16,6 +18,22 @@ class MainActivity : AppCompatActivity() {
         fun getDatabase(): AppDatabase? {
             return db
         }
+    }
+
+    val fastEndDialog: AlertDialog? by lazy {
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setMessage(R.string.confirm_fast_end)
+            setPositiveButton(R.string.yes,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        model.startStopFast()
+                    })
+            setNegativeButton(R.string.cancel,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User cancelled the dialog, do nothing
+                    })
+        }
+        builder.create()
     }
 
     lateinit var fastTime: TextView
@@ -31,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         if (db == null) {
             db =
-                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
+                    Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
         }
 
         fastTime = findViewById(R.id.fastTime)
@@ -39,8 +57,8 @@ class MainActivity : AppCompatActivity() {
 
         val buttonObserver = Observer<FastState> { newState ->
             val newText = when (newState) {
-                FastState.EAT -> R.string.fastStart
-                FastState.FAST -> R.string.fastStop
+                FastState.EAT -> R.string.fast_start
+                FastState.FAST -> R.string.fast_stop
             }
             fastButton.text = getString(newText)
         }
@@ -57,7 +75,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun fastButtonClicked(view: View) {
-        model.startStopFast()
+        if (model.hasOngoingFast() == true) {
+            fastEndDialog?.show()
+        } else {
+            model.startStopFast()
+        }
     }
 
     fun updateTime() {
@@ -68,10 +90,10 @@ class MainActivity : AppCompatActivity() {
         timeString = if (time != null) {
             val (hours, minutes, seconds) = millisToHMS(time)
 
-            val timeFmt = getString(R.string.timerFormat)
+            val timeFmt = getString(R.string.timer_format)
             timeFmt.format(hours, minutes, seconds)
         } else {
-            getString(R.string.numInvalid)
+            getString(R.string.num_invalid)
         }
 
         fastTime.text = timeString

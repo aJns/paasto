@@ -7,6 +7,15 @@
     tools:context=".MainActivity">
 
     <View
+        android:id="@+id/titleView"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:background="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
         android:id="@+id/outerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,13 +26,24 @@
         app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
     <View
-        android:id="@+id/titleView"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:background="@color/primaryColor"
+        android:id="@+id/innerView"
+        android:layout_width="222dp"
+        android:layout_height="190dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/outerView"
+        app:layout_constraintTop_toTopOf="@+id/outerView" />
+
+    <Button
+        android:id="@+id/fastButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="fastButtonClicked"
+        android:text="@string/fast_start"
+        app:layout_constraintBottom_toBottomOf="@+id/innerView"
+        app:layout_constraintEnd_toEndOf="@+id/innerView"
+        app:layout_constraintStart_toStartOf="@+id/innerView" />
 
     <TextView
         android:id="@+id/appTitle"
@@ -48,32 +68,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/numInvalid"
+        android:text="@string/num_invalid"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toTopOf="@+id/fastButton"
         app:layout_constraintEnd_toEndOf="@+id/innerView"
         app:layout_constraintStart_toStartOf="@+id/innerView"
         app:layout_constraintTop_toTopOf="@+id/innerView" />
-
-    <Button
-        android:id="@+id/fastButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:onClick="fastButtonClicked"
-        android:text="@string/fastStart"
-        app:layout_constraintBottom_toBottomOf="@+id/innerView"
-        app:layout_constraintEnd_toEndOf="@+id/innerView"
-        app:layout_constraintStart_toStartOf="@+id/innerView" />
-
-    <View
-        android:id="@+id/innerView"
-        android:layout_width="222dp"
-        android:layout_height="190dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/outerView"
-        app:layout_constraintTop_toTopOf="@+id/outerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
