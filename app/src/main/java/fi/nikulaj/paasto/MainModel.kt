@@ -9,9 +9,9 @@ enum class FastState {
 
 @Entity
 data class Fast(
-        @PrimaryKey(autoGenerate = true) val uid: Int?,
-        @ColumnInfo(name = "start_time") val startTime: Long,
-        @ColumnInfo(name = "end_time") var stopTime: Long?
+    @PrimaryKey(autoGenerate = true) val uid: Int?,
+    @ColumnInfo(name = "start_time") var startTime: Long,
+    @ColumnInfo(name = "end_time") var stopTime: Long?
 )
 
 @Dao
@@ -50,6 +50,16 @@ object MainModel {
         }
 
         return fastDao.getOngoing()!!.startTime
+    }
+
+    suspend fun setOngoingFastStart(newStart: Long) {
+        if (BuildConfig.DEBUG && !hasOngoingFast()) {
+            error("Assertion failed")
+        }
+
+        val ongoing = fastDao.getOngoing()!!
+        ongoing.startTime = newStart
+        fastDao.update(ongoing)
     }
 
     fun getLastFastStop(): Long {
