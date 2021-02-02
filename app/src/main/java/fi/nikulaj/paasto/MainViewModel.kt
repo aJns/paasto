@@ -7,32 +7,41 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private var fastStart: Long? = null
     private var fastOngoing: Boolean? = null
 
     val buttonState: MutableLiveData<FastState> by lazy {
         MutableLiveData<FastState>()
     }
+    val fastStart: MutableLiveData<Long?> by lazy {
+        MutableLiveData<Long?>()
+    }
 
     fun checkState() {
         viewModelScope.launch {
-            if (MainModel.hasOngoingFast()) {
-                fastStart = MainModel.getOngoingFastStart()
+            val ongoing = MainModel.hasOngoingFast()
+            if (ongoing) {
+                fastStart.value = MainModel.getOngoingFastStart()
                 buttonState.postValue(FastState.FAST)
-                fastOngoing = true
             } else {
-                fastStart = null
+                fastStart.value = null
                 buttonState.postValue(FastState.EAT)
-                fastOngoing = false
             }
+            fastOngoing = ongoing
         }
     }
 
     fun getFastTime(): Long? {
-        return if (fastStart != null) {
-            System.currentTimeMillis() - fastStart!!
+        return if (fastStart.value != null) {
+            System.currentTimeMillis() - fastStart.value!!
         } else {
             null
+        }
+    }
+
+    fun changeFastStartTime(newTime: Long) {
+        viewModelScope.launch {
+            MainModel.setOngoingFastStart(newTime)
+            checkState()
         }
     }
 
