@@ -15,6 +15,9 @@ class MainViewModel : ViewModel() {
     val fastStart: MutableLiveData<Long?> by lazy {
         MutableLiveData<Long?>()
     }
+    val targetDuration: MutableLiveData<Long?> by lazy {
+        MutableLiveData<Long?>()
+    }
 
     fun checkState() {
         viewModelScope.launch {
@@ -28,11 +31,21 @@ class MainViewModel : ViewModel() {
             }
             fastOngoing = ongoing
         }
+        targetDuration.value = 18*60*60*1000
     }
 
     fun getFastTime(): Long? {
         return if (fastStart.value != null) {
             System.currentTimeMillis() - fastStart.value!!
+        } else {
+            null
+        }
+    }
+
+    fun getTimeToTarget(): Long? {
+        return if (fastStart.value != null) {
+            val targetEnd = fastStart.value!! + targetDuration.value!!
+             targetEnd - System.currentTimeMillis()
         } else {
             null
         }
