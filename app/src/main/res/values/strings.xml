@@ -4,10 +4,13 @@
     <string name="fast_stop">Lopeta Paasto</string>
     <string name="num_invalid">--</string>
     <string name="timer_format">%02d : %02d : %02d</string>
+    <string name="pos_timer_format">+ %02d : %02d : %02d</string>
+    <string name="neg_timer_format">- %02d : %02d : %02d</string>
     <string name="confirm_fast_end">Haluatko varmasti lopettaa paastosi?</string>
     <string name="yes">Kyllä</string>
     <string name="cancel">Peruuta</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fastEndConfirmation">Haluatko varmasti lopettaa paastosi?</string>
+    <string name="hour_format">%d h</string>
 </resources>

@@ -11,7 +11,8 @@ enum class FastState {
 data class Fast(
     @PrimaryKey(autoGenerate = true) val uid: Int?,
     @ColumnInfo(name = "start_time") var startTime: Long,
-    @ColumnInfo(name = "end_time") var stopTime: Long?
+    @ColumnInfo(name = "end_time") var stopTime: Long?,
+    @ColumnInfo(name = "target_duration") var targetDuration: Long?
 )
 
 @Dao
@@ -70,7 +71,8 @@ object MainModel {
         if (BuildConfig.DEBUG && hasOngoingFast()) {
             error("Assertion failed")
         }
-        fastDao.insert(Fast(null, startTime, null))
+        val target = (18*60*60*1000).toLong()
+        fastDao.insert(Fast(null, startTime, null, target))
     }
 
     suspend fun stopFastAt(stopTime: Long) {

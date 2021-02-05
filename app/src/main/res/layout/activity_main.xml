@@ -31,6 +31,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/innerView" />
 
+    <Button
+        android:id="@+id/targetDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/num_invalid"
+        android:textColor="@color/textOnPrimary"
+        app:backgroundTint="@color/primaryLight"
+        app:layout_constraintBottom_toTopOf="@+id/innerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar" />
+
     <TextView
         android:id="@+id/fastTime"
         android:layout_width="wrap_content"
