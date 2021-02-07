@@ -31,7 +31,7 @@ class MainViewModel : ViewModel() {
             }
             fastOngoing = ongoing
         }
-        targetDuration.value = 18*60*60*1000
+        targetDuration.value = 18 * 60 * 60 * 1000
     }
 
     fun getFastTime(): Long? {
@@ -45,7 +45,7 @@ class MainViewModel : ViewModel() {
     fun getTimeToTarget(): Long? {
         return if (fastStart.value != null) {
             val targetEnd = fastStart.value!! + targetDuration.value!!
-             targetEnd - System.currentTimeMillis()
+            targetEnd - System.currentTimeMillis()
         } else {
             null
         }
