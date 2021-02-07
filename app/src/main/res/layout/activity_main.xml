@@ -44,10 +44,22 @@
         app:layout_constraintTop_toBottomOf="@+id/appBar" />
 
     <TextView
+        android:id="@+id/targetReachedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/num_invalid"
+        android:textColor="@color/textOnBackground"
+        app:layout_constraintEnd_toEndOf="@+id/targetDuration"
+        app:layout_constraintStart_toStartOf="@+id/targetDuration"
+        app:layout_constraintTop_toBottomOf="@+id/targetDuration" />
+
+    <TextView
         android:id="@+id/fastTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:onClick="toggleCountdownMode"
         android:text="@string/num_invalid"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/textOnBackground"

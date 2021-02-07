@@ -13,4 +13,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fastEndConfirmation">Haluatko varmasti lopettaa paastosi?</string>
     <string name="hour_format">%d h</string>
+    <string name="countdown_mode_remaining">countdown_mode_remaining</string>
 </resources>

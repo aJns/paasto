@@ -4,13 +4,11 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.format.DateFormat.is24HourFormat
+import android.text.format.DateFormat
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import android.text.format.DateFormat;
-import androidx.fragment.app.FragmentManager
 import java.util.*
 
 class DateTimePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {

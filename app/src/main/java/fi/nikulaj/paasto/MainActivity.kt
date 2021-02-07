@@ -1,18 +1,15 @@
 package fi.nikulaj.paasto
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.CalendarView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.room.Room
-import java.io.DataInput
-import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,11 +21,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    var fastStart: Long? = null
+    var targetTime: Long? = null
+
+    var showRemaining: Boolean? = null
+        get() {
+            if (field == null) {
+                val sharedPref = getPreferences(Context.MODE_PRIVATE)
+                field = sharedPref.getBoolean(getString(R.string.countdown_mode_remaining), true)
+            }
+            return field
+        }
+        set(value) {
+            if (field != value) {
+                field = value
+                val sharedPref = getPreferences(Context.MODE_PRIVATE)
+                with(sharedPref.edit()) {
+                    putBoolean(getString(R.string.countdown_mode_remaining), value!!)
+                    apply()
+                }
+            }
+        }
 
     lateinit var fastTime: TextView
-    lateinit var fastButton: Button
-    lateinit var fastStartTime: Button
-    lateinit var targetDuration: Button
 
     private val model: MainViewModel by viewModels()
 
@@ -46,10 +61,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         fastTime = findViewById(R.id.fastTime)
-        fastButton = findViewById(R.id.fastButton)
-        fastStartTime = findViewById(R.id.startTime)
-        targetDuration = findViewById(R.id.targetDuration)
 
+        val fastButton = findViewById<Button>(R.id.fastButton)
         val buttonObserver = Observer<FastState> { newState ->
             val newText = when (newState) {
                 FastState.EAT -> R.string.fast_start
@@ -59,21 +72,15 @@ class MainActivity : AppCompatActivity() {
         }
         model.buttonState.observe(this, buttonObserver)
 
+        val fastStartTime = findViewById<Button>(R.id.startTime)
         val startTimeObserver = Observer<Long?> { newTime ->
-            fastStartTime.text = if (newTime != null) {
-                val cal = Calendar.getInstance()
-                cal.timeInMillis = newTime
-                val fmtr = SimpleDateFormat.getDateTimeInstance()
-
-                fmtr.format(cal.time)
-            }
-            else {
-
-                getString(R.string.num_invalid)
-            }
+            fastStartTime.text = getDateStringFromMillis(newTime)
+            fastStart = newTime
+            updateTargetReachedTime()
         }
         model.fastStart.observe(this, startTimeObserver)
 
+        val targetDuration = findViewById<Button>(R.id.targetDuration)
         val targetDurationObserver = Observer<Long?> { newTarget ->
             targetDuration.text = if (newTarget != null) {
                 val (hours, _, _) = millisToHMS(newTarget)
@@ -83,6 +90,8 @@ class MainActivity : AppCompatActivity() {
 
                 getString(R.string.num_invalid)
             }
+            targetTime = newTarget
+            updateTargetReachedTime()
         }
         model.targetDuration.observe(this, targetDurationObserver)
 
@@ -113,19 +122,56 @@ class MainActivity : AppCompatActivity() {
         return if (time != null) {
             val (hours, minutes, seconds) = millisToHMS(kotlin.math.abs(time))
 
-            val timeFmt = if (time > 0) {
-                getString(R.string.neg_timer_format)
-            } else {
-                getString(R.string.pos_timer_format)
-            }
+            val timeFmt =
+                    if (!showRemaining!!) {
+                        getString(R.string.timer_format)
+                    } else if (time > 0) {
+                        getString(R.string.neg_timer_format)
+                    } else {
+                        getString(R.string.pos_timer_format)
+                    }
             timeFmt.format(hours, minutes, seconds)
         } else {
             getString(R.string.num_invalid)
         }
     }
 
+    fun getDateStringFromMillis(millis: Long?): String {
+        return if (millis != null) {
+            val cal = Calendar.getInstance()
+            cal.timeInMillis = millis
+            val fmtr = SimpleDateFormat.getDateTimeInstance()
+
+            fmtr.format(cal.time)
+        } else {
+
+            getString(R.string.num_invalid)
+        }
+    }
+
+    fun updateTargetReachedTime() {
+        val targetReachedView = findViewById<TextView>(R.id.targetReachedAt)
+        val targetReachedAt =
+                if (fastStart != null && targetTime != null) {
+                    fastStart!! + targetTime!!
+                } else {
+                    null
+                }
+        targetReachedView.text = getDateStringFromMillis(targetReachedAt)
+    }
+
     fun updateTime() {
-        val time = model.getTimeToTarget()
+        val time = if (showRemaining!!) {
+            model.getTimeToTarget()
+        } else {
+            model.getFastTime()
+        }
         fastTime.text = longToHMSString(time)
     }
+
+
+    fun toggleCountdownMode(view: View) {
+        showRemaining = !showRemaining!!
+    }
+
 }
