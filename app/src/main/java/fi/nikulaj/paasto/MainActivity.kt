@@ -1,5 +1,6 @@
 package fi.nikulaj.paasto
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -23,6 +24,24 @@ class MainActivity : AppCompatActivity() {
     var fastStart: Long? = null
     var targetTime: Long? = null
 
+    var showRemaining: Boolean? = null
+        get() {
+            if (field == null) {
+                val sharedPref = getPreferences(Context.MODE_PRIVATE)
+                field = sharedPref.getBoolean(getString(R.string.countdown_mode_remaining), true)
+            }
+            return field
+        }
+        set(value) {
+            if (field != value) {
+                field = value
+                val sharedPref = getPreferences(Context.MODE_PRIVATE)
+                with(sharedPref.edit()) {
+                    putBoolean(getString(R.string.countdown_mode_remaining), value!!)
+                    apply()
+                }
+            }
+        }
 
     lateinit var fastTime: TextView
 
@@ -103,11 +122,14 @@ class MainActivity : AppCompatActivity() {
         return if (time != null) {
             val (hours, minutes, seconds) = millisToHMS(kotlin.math.abs(time))
 
-            val timeFmt = if (time > 0) {
-                getString(R.string.neg_timer_format)
-            } else {
-                getString(R.string.pos_timer_format)
-            }
+            val timeFmt =
+                    if (!showRemaining!!) {
+                        getString(R.string.timer_format)
+                    } else if (time > 0) {
+                        getString(R.string.neg_timer_format)
+                    } else {
+                        getString(R.string.pos_timer_format)
+                    }
             timeFmt.format(hours, minutes, seconds)
         } else {
             getString(R.string.num_invalid)
@@ -139,7 +161,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateTime() {
-        val time = model.getTimeToTarget()
+        val time = if (showRemaining!!) {
+            model.getTimeToTarget()
+        } else {
+            model.getFastTime()
+        }
         fastTime.text = longToHMSString(time)
     }
+
+
+    fun toggleCountdownMode(view: View) {
+        showRemaining = !showRemaining!!
+    }
+
 }
