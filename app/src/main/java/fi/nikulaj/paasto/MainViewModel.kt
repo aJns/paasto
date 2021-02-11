@@ -65,11 +65,16 @@ class MainViewModel : ViewModel() {
     fun startStopFast() {
         viewModelScope.launch {
             val currentTime = System.currentTimeMillis()
-            if (MainModel.hasOngoingFast()) {
-                MainModel.stopFastAt(currentTime)
-            } else {
-                MainModel.startFastAt(currentTime)
-            }
+            MainModel.startFastAt(currentTime)
+            checkState()
+        }
+    }
+
+    fun saveFast(start: Long, stop: Long)
+    {
+        viewModelScope.launch {
+            MainModel.setOngoingFastStart(start)
+            MainModel.stopFastAt(stop)
             checkState()
         }
     }

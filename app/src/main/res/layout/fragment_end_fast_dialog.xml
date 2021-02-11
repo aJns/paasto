@@ -60,10 +60,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="32dp"
         android:text="@string/num_invalid"
         app:backgroundTint="@color/primaryLight"
-        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
@@ -88,6 +86,21 @@
         android:textColor="@color/textOnBackground"
         app:layout_constraintBaseline_toBaselineOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/fastDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/num_invalid"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/leftSide"

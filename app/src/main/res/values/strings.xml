@@ -9,11 +9,10 @@
     <string name="confirm_fast_end">Haluatko varmasti lopettaa paastosi?</string>
     <string name="yes">Kyllä</string>
     <string name="cancel">Peruuta</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fastEndConfirmation">Haluatko varmasti lopettaa paastosi?</string>
     <string name="hour_format">%d h</string>
     <string name="countdown_mode_remaining">countdown_mode_remaining</string>
     <string name="fast_start_time">Paaston aloitusaika</string>
     <string name="fast_end_time">Paaston lopetusaika</string>
+    <string name="fast_duration">Paaston kesto: %d h %d min</string>
 </resources>
