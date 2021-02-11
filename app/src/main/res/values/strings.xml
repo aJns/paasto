@@ -14,4 +14,6 @@
     <string name="fastEndConfirmation">Haluatko varmasti lopettaa paastosi?</string>
     <string name="hour_format">%d h</string>
     <string name="countdown_mode_remaining">countdown_mode_remaining</string>
+    <string name="fast_start_time">Paaston aloitusaika</string>
+    <string name="fast_end_time">Paaston lopetusaika</string>
 </resources>
