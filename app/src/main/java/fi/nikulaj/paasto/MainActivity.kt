@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         val fastStartTime = findViewById<Button>(R.id.startTime)
         val startTimeObserver = Observer<Long?> { newTime ->
-            fastStartTime.text = getDateStringFromMillis(newTime)
+            fastStartTime.text = getDateStringFromMillis(this, newTime)
             fastStart = newTime
             updateTargetReachedTime()
         }
@@ -139,19 +139,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getDateStringFromMillis(millis: Long?): String {
-        return if (millis != null) {
-            val cal = Calendar.getInstance()
-            cal.timeInMillis = millis
-            val fmtr = SimpleDateFormat.getDateTimeInstance()
-
-            fmtr.format(cal.time)
-        } else {
-
-            getString(R.string.num_invalid)
-        }
-    }
-
     fun updateTargetReachedTime() {
         val targetReachedView = findViewById<TextView>(R.id.targetReachedAt)
         val targetReachedAt =
@@ -160,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     null
                 }
-        targetReachedView.text = getDateStringFromMillis(targetReachedAt)
+        targetReachedView.text = getDateStringFromMillis(this, targetReachedAt)
     }
 
     fun updateTime() {
