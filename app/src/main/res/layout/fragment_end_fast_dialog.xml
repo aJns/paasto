@@ -46,24 +46,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:text="@string/num_invalid"
         app:backgroundTint="@color/primaryLight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/fastEndTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:text="@string/num_invalid"
         app:backgroundTint="@color/primaryLight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fastStartTime" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
@@ -71,10 +69,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/fast_end_time"
         android:textColor="@color/textOnBackground"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fastEndTime"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fastStartTime" />
 
     <TextView
         android:id="@+id/textView2"
@@ -82,10 +84,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/fast_start_time"
         android:textColor="@color/textOnBackground"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fastStartTime"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/fastDuration"
@@ -101,24 +107,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fastEndTime" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/leftSide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="right"
-        app:constraint_referenced_ids="textView,yesButton,textView2"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="384dp" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/rightSide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left"
-        app:constraint_referenced_ids="cancelButton,fastEndTime,fastStartTime"
-        tools:layout_editor_absoluteX="241dp"
-        tools:layout_editor_absoluteY="400dp" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier4"
