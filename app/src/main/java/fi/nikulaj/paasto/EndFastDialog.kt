@@ -66,7 +66,7 @@ object EndFastDialog : DialogFragment() {
             updateFastDuration()
         }
 
-        dateTimePicker.showWithCallback(supportFragmentManager , dateTimePicker.tag, fastStart!!, callback)
+        dateTimePicker.showWithCallback(supportFragmentManager, dateTimePicker.tag, fastStart!!, callback)
     }
 
     private val onFastEndClicked = View.OnClickListener { view ->

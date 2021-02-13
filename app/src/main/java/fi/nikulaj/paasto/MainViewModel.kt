@@ -70,8 +70,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun saveFast(start: Long, stop: Long)
-    {
+    fun saveFast(start: Long, stop: Long) {
         viewModelScope.launch {
             MainModel.setOngoingFastStart(start)
             MainModel.stopFastAt(stop)
