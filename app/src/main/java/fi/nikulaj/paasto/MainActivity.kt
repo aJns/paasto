@@ -115,7 +115,10 @@ class MainActivity : AppCompatActivity() {
 
     fun startTimeClicked(view: View) {
         val dateTimePicker = DateTimePickerDialog()
-        dateTimePicker.show(fragMan, dateTimePicker.tag)
+        val callback: (Long) -> Unit = { newStart: Long ->
+            model.fastStart.value = newStart
+        }
+        dateTimePicker.showWithCallback(fragMan, dateTimePicker.tag, fastStart!!, callback)
     }
 
     fun longToHMSString(time: Long?): String {
