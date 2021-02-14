@@ -10,8 +10,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.room.Room
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -56,8 +54,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.appBar))
 
         if (db == null) {
-            db =
-                    Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
+            db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
         }
 
         fastTime = findViewById(R.id.fastTime)
@@ -74,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         val fastStartTime = findViewById<Button>(R.id.startTime)
         val startTimeObserver = Observer<Long?> { newTime ->
-            fastStartTime.text = getDateStringFromMillis(newTime)
+            fastStartTime.text = getDateStringFromMillis(this, newTime)
             fastStart = newTime
             updateTargetReachedTime()
         }
@@ -115,7 +112,15 @@ class MainActivity : AppCompatActivity() {
 
     fun startTimeClicked(view: View) {
         val dateTimePicker = DateTimePickerDialog()
-        dateTimePicker.show(fragMan, dateTimePicker.tag)
+        val callback: (Long) -> Unit = { newStart: Long ->
+            model.fastStart.value = newStart
+        }
+        dateTimePicker.showWithCallback(fragMan, dateTimePicker.tag, fastStart!!, callback)
+    }
+
+    fun fastTargetClicked(view: View) {
+        val fastDurDiag = FastDurationDialog()
+        fastDurDiag.show(fragMan, fastDurDiag.tag)
     }
 
     fun longToHMSString(time: Long?): String {
@@ -136,19 +141,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getDateStringFromMillis(millis: Long?): String {
-        return if (millis != null) {
-            val cal = Calendar.getInstance()
-            cal.timeInMillis = millis
-            val fmtr = SimpleDateFormat.getDateTimeInstance()
-
-            fmtr.format(cal.time)
-        } else {
-
-            getString(R.string.num_invalid)
-        }
-    }
-
     fun updateTargetReachedTime() {
         val targetReachedView = findViewById<TextView>(R.id.targetReachedAt)
         val targetReachedAt =
@@ -157,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     null
                 }
-        targetReachedView.text = getDateStringFromMillis(targetReachedAt)
+        targetReachedView.text = getDateStringFromMillis(this, targetReachedAt)
     }
 
     fun updateTime() {

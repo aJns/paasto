@@ -30,8 +30,12 @@ class MainViewModel : ViewModel() {
                 buttonState.postValue(FastState.EAT)
             }
             fastOngoing = ongoing
+
+            targetDuration.value = when (MainModel.targetDuration) {
+                null -> MainModel.getTargetDurationFromDb()
+                else -> MainModel.targetDuration
+            }
         }
-        targetDuration.value = 18 * 60 * 60 * 1000
     }
 
     fun getFastTime(): Long? {
@@ -58,6 +62,11 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun setFastTarget(target: Long) {
+        targetDuration.value = target
+        MainModel.targetDuration = target
+    }
+
     fun hasOngoingFast(): Boolean? {
         return fastOngoing
     }
@@ -65,11 +74,15 @@ class MainViewModel : ViewModel() {
     fun startStopFast() {
         viewModelScope.launch {
             val currentTime = System.currentTimeMillis()
-            if (MainModel.hasOngoingFast()) {
-                MainModel.stopFastAt(currentTime)
-            } else {
-                MainModel.startFastAt(currentTime)
-            }
+            MainModel.startFastAt(currentTime)
+            checkState()
+        }
+    }
+
+    fun saveFast(start: Long, stop: Long) {
+        viewModelScope.launch {
+            MainModel.setOngoingFastStart(start)
+            MainModel.stopFastAt(stop)
             checkState()
         }
     }

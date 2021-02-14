@@ -8,12 +8,12 @@ import android.text.format.DateFormat
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.FragmentManager
 import java.util.*
 
 class DateTimePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private val model: MainViewModel by activityViewModels()
+    private var callback: ((Long) -> Unit)? = null
 
     lateinit var datePicker: DatePickerDialog
     lateinit var timePicker: TimePickerDialog
@@ -21,9 +21,6 @@ class DateTimePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
     val cal = Calendar.getInstance()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val startTime = model.fastStart.value
-        cal.timeInMillis = startTime!!
-
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
@@ -48,9 +45,15 @@ class DateTimePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
 
         val newStart = cal.timeInMillis
 
-        model.changeFastStartTime(newStart)
-
+        callback!!(newStart)
         dismiss()
     }
+
+    fun showWithCallback(fragmentManager: FragmentManager, tag: String?, defaultTime: Long, callback: (Long) -> Unit) {
+        cal.timeInMillis = defaultTime
+        show(fragmentManager, tag)
+        this.callback = callback
+    }
+
 
 }
