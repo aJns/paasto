@@ -30,8 +30,12 @@ class MainViewModel : ViewModel() {
                 buttonState.postValue(FastState.EAT)
             }
             fastOngoing = ongoing
+
+            targetDuration.value = when (MainModel.targetDuration) {
+                null -> MainModel.getTargetDurationFromDb()
+                else -> MainModel.targetDuration
+            }
         }
-        targetDuration.value = 18 * 60 * 60 * 1000
     }
 
     fun getFastTime(): Long? {
@@ -56,6 +60,11 @@ class MainViewModel : ViewModel() {
             MainModel.setOngoingFastStart(newTime)
             checkState()
         }
+    }
+
+    fun setFastTarget(target: Long) {
+        targetDuration.value = target
+        MainModel.targetDuration = target
     }
 
     fun hasOngoingFast(): Boolean? {

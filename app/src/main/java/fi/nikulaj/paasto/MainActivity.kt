@@ -54,8 +54,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.appBar))
 
         if (db == null) {
-            db =
-                    Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
+            db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
         }
 
         fastTime = findViewById(R.id.fastTime)
@@ -117,6 +116,11 @@ class MainActivity : AppCompatActivity() {
             model.fastStart.value = newStart
         }
         dateTimePicker.showWithCallback(fragMan, dateTimePicker.tag, fastStart!!, callback)
+    }
+
+    fun fastTargetClicked(view: View) {
+        val fastDurDiag = FastDurationDialog()
+        fastDurDiag.show(fragMan, fastDurDiag.tag)
     }
 
     fun longToHMSString(time: Long?): String {

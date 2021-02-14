@@ -15,4 +15,8 @@
     <string name="fast_start_time">Paaston aloitusaika</string>
     <string name="fast_end_time">Paaston lopetusaika</string>
     <string name="fast_duration">Paaston kesto: %d h %d min</string>
+    <string name="set_target">Aseta tavoite</string>
+    <string name="hours">tuntia</string>
+    <string name="hours_unit">h</string>
+    <string name="fast_target">Paaston tavoiteaika</string>
 </resources>
