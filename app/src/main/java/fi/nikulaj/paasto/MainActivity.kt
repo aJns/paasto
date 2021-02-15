@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     fun startTimeClicked(view: View) {
         val dateTimePicker = DateTimePickerDialog()
         val callback: (Long) -> Unit = { newStart: Long ->
-            model.fastStart.value = newStart
+            model.changeFastStartTime(newStart)
         }
         dateTimePicker.showWithCallback(fragMan, dateTimePicker.tag, fastStart!!, callback)
     }
