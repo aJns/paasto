@@ -1,22 +1,20 @@
 <resources>
     <string name="app_name">Paasto</string>
-    <string name="fast_start">Aloita Paasto</string>
-    <string name="fast_stop">Lopeta Paasto</string>
-    <string name="num_invalid">--</string>
-    <string name="timer_format">%02d : %02d : %02d</string>
-    <string name="pos_timer_format">+ %02d : %02d : %02d</string>
-    <string name="neg_timer_format">- %02d : %02d : %02d</string>
-    <string name="confirm_fast_end">Haluatko varmasti lopettaa paastosi?</string>
-    <string name="yes">Kyllä</string>
-    <string name="cancel">Peruuta</string>
-    <string name="fastEndConfirmation">Haluatko varmasti lopettaa paastosi?</string>
-    <string name="hour_format">%d h</string>
-    <string name="countdown_mode_remaining">countdown_mode_remaining</string>
-    <string name="fast_start_time">Paaston aloitusaika</string>
-    <string name="fast_end_time">Paaston lopetusaika</string>
-    <string name="fast_duration">Paaston kesto: %d h %d min</string>
-    <string name="set_target">Aseta tavoite</string>
-    <string name="hours">tuntia</string>
-    <string name="hours_unit">h</string>
-    <string name="fast_target">Paaston tavoiteaika</string>
+    <string name="fast_start">Start fast</string>
+    <string name="fast_stop">End fast</string>
+    <string name="num_invalid" translatable="false">--</string>
+    <string name="timer_format" translatable="false">%02d : %02d : %02d</string>
+    <string name="pos_timer_format" translatable="false">+ %02d : %02d : %02d</string>
+    <string name="neg_timer_format" translatable="false">- %02d : %02d : %02d</string>
+    <string name="confirm_fast_end">Are you sure you want to end your fast?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="hour_format" translatable="false">%d h</string>
+    <string name="fast_start_time">Fast start time</string>
+    <string name="fast_end_time">Fast end time</string>
+    <string name="fast_duration">Fast duration: %d h %d min</string>
+    <string name="set_target">Set target</string>
+    <string name="hours">hours</string>
+    <string name="hours_unit" translatable="false">h</string>
+    <string name="fast_target">Fast target length</string>
 </resources>

@@ -75,8 +75,8 @@ object MainModel {
             }
         }
 
-    suspend fun getTargetDurationFromDb(): Long? {
-        return when {
+    suspend fun getTargetDurationFromDb(): Long {
+        val target = when {
             fastDao.getOngoing() != null -> {
                 val ongoing = fastDao.getOngoing()
                 ongoing!!.targetDuration
@@ -89,6 +89,10 @@ object MainModel {
                 val last = fastDao.getLast()
                 last?.targetDuration
             }
+        }
+        return when (target) {
+            null -> 18*60*60*1000
+            else -> target
         }
     }
 
