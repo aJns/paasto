@@ -20,4 +20,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="timer">Timer</string>
     <string name="log">Log</string>
+    <string name="log_empty">No logged fasts yet</string>
 </resources>
