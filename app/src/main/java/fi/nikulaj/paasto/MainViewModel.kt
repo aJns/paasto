@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
         MutableLiveData<Long?>()
     }
 
-    fun checkState() {
+    fun checkState() {  // TODO: problematic, refactor
         viewModelScope.launch {
             val ongoing = MainModel.hasOngoingFast()
             if (ongoing) {
@@ -47,7 +47,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getTimeToTarget(): Long? {
-        return if (fastStart.value != null) {
+        return if (fastStart.value != null && targetDuration.value != null) {
             val targetEnd = fastStart.value!! + targetDuration.value!!
             targetEnd - System.currentTimeMillis()
         } else {
