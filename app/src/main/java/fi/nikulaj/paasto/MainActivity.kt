@@ -1,15 +1,10 @@
 package fi.nikulaj.paasto
 
 import ViewAdapter
-import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.room.Room
 import androidx.viewpager2.widget.ViewPager2
@@ -34,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.appBar))
 
         if (db == null) {
-            db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
+            db =
+                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
         }
 
         val startTimeObserver = Observer<Long?> { newTime ->
@@ -49,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = when(position) {
+            tab.text = when (position) {
                 0 -> getString(R.string.timer)
                 1 -> getString(R.string.log)
                 else -> TODO("not implemented")
@@ -70,7 +66,12 @@ class MainActivity : AppCompatActivity() {
         val callback: (Long) -> Unit = { newStart: Long ->
             model.changeFastStartTime(newStart)
         }
-        dateTimePicker.showWithCallback(supportFragmentManager, dateTimePicker.tag, fastStart!!, callback)
+        dateTimePicker.showWithCallback(
+            supportFragmentManager,
+            dateTimePicker.tag,
+            fastStart!!,
+            callback
+        )
     }
 
     fun fastTargetClicked(view: View) {

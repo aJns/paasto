@@ -8,7 +8,7 @@ class ViewAdapter(fragAct: FragmentActivity) : FragmentStateAdapter(fragAct) {
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        return when(position) {
+        return when (position) {
             0 -> TimerFragment()
             1 -> LogFragment()
             else -> TODO("Not implemented")

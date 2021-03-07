@@ -19,8 +19,10 @@ object EndFastDialog : DialogFragment() {
 
     lateinit var supportFragmentManager: FragmentManager
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_end_fast_dialog, container, false)
     }
 
@@ -66,7 +68,12 @@ object EndFastDialog : DialogFragment() {
             updateFastDuration()
         }
 
-        dateTimePicker.showWithCallback(supportFragmentManager, dateTimePicker.tag, fastStart!!, callback)
+        dateTimePicker.showWithCallback(
+            supportFragmentManager,
+            dateTimePicker.tag,
+            fastStart!!,
+            callback
+        )
     }
 
     private val onFastEndClicked = View.OnClickListener { view ->
@@ -79,7 +86,12 @@ object EndFastDialog : DialogFragment() {
             updateFastDuration()
         }
 
-        dateTimePicker.showWithCallback(supportFragmentManager, dateTimePicker.tag, fastEnd!!, callback)
+        dateTimePicker.showWithCallback(
+            supportFragmentManager,
+            dateTimePicker.tag,
+            fastEnd!!,
+            callback
+        )
     }
 
     private val onYesListener = View.OnClickListener { view ->
