@@ -1,5 +1,6 @@
 package fi.nikulaj.paasto
 
+import ViewAdapter
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.room.Room
+import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -40,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         model.checkState()
 
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        viewPager.adapter = ViewAdapter(this)
     }
 
     fun fastButtonClicked(view: View) {

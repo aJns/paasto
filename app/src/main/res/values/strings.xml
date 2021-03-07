@@ -17,4 +17,6 @@
     <string name="hours">hours</string>
     <string name="hours_unit" translatable="false">h</string>
     <string name="fast_target">Fast target length</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
