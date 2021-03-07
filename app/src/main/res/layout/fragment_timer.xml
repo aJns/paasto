@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/fastButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="fastButtonClicked"
+        android:text="@string/fast_start"
+        app:layout_constraintBottom_toBottomOf="@+id/innerView"
+        app:layout_constraintEnd_toEndOf="@+id/innerView"
+        app:layout_constraintStart_toStartOf="@+id/innerView" />
+
+    <Button
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startTimeClicked"
+        android:text="@string/num_invalid"
+        android:textColor="@color/textOnPrimary"
+        app:backgroundTint="@color/primaryLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/innerView" />
+
+    <Button
+        android:id="@+id/targetDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="fastTargetClicked"
+        android:text="@string/num_invalid"
+        android:textColor="@color/textOnPrimary"
+        app:backgroundTint="@color/primaryLight"
+        app:layout_constraintBottom_toTopOf="@+id/innerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/targetReachedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/num_invalid"
+        android:textColor="@color/textOnBackground"
+        app:layout_constraintEnd_toEndOf="@+id/targetDuration"
+        app:layout_constraintStart_toStartOf="@+id/targetDuration"
+        app:layout_constraintTop_toBottomOf="@+id/targetDuration" />
+
+    <TextView
+        android:id="@+id/fastTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="toggleCountdownMode"
+        android:text="@string/num_invalid"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/textOnBackground"
+        app:layout_constraintBottom_toTopOf="@+id/fastButton"
+        app:layout_constraintEnd_toEndOf="@+id/innerView"
+        app:layout_constraintStart_toStartOf="@+id/innerView"
+        app:layout_constraintTop_toTopOf="@+id/innerView" />
+
+    <View
+        android:id="@+id/innerView"
+        android:layout_width="222dp"
+        android:layout_height="190dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
