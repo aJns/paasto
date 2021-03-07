@@ -12,4 +12,6 @@
     <string name="set_target">Aseta tavoite</string>
     <string name="hours">tuntia</string>
     <string name="fast_target">Paaston tavoiteaika</string>
+    <string name="timer">Ajastin</string>
+    <string name="log">Loki</string>
 </resources>
