@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.room.Room
+import com.google.android.material.tabs.TabLayoutMediator
 
 class TimerFragment : Fragment() {
 

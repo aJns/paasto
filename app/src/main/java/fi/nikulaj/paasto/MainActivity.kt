@@ -13,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.room.Room
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -44,6 +46,15 @@ class MainActivity : AppCompatActivity() {
 
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
         viewPager.adapter = ViewAdapter(this)
+
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when(position) {
+                0 -> getString(R.string.timer)
+                1 -> getString(R.string.log)
+                else -> TODO("not implemented")
+            }
+        }.attach()
     }
 
     fun fastButtonClicked(view: View) {
