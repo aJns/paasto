@@ -11,10 +11,10 @@ enum class FastState {
 
 @Entity
 data class Fast(
-        @PrimaryKey(autoGenerate = true) val uid: Int?,
-        @ColumnInfo(name = "start_time") var startTime: Long,
-        @ColumnInfo(name = "end_time") var stopTime: Long?,
-        @ColumnInfo(name = "target_duration") var targetDuration: Long?
+    @PrimaryKey(autoGenerate = true) val uid: Int?,
+    @ColumnInfo(name = "start_time") var startTime: Long,
+    @ColumnInfo(name = "end_time") var stopTime: Long?,
+    @ColumnInfo(name = "target_duration") var targetDuration: Long?
 )
 
 @Dao
@@ -91,7 +91,7 @@ object MainModel {
             }
         }
         return when (target) {
-            null -> 18*60*60*1000
+            null -> 18 * 60 * 60 * 1000
             else -> target
         }
     }
