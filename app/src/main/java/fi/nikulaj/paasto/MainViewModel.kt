@@ -20,6 +20,10 @@ class MainViewModel : ViewModel() {
         MutableLiveData<Long?>()
     }
 
+    val fastLog: MutableLiveData<Array<Fast>> by lazy {
+        MutableLiveData<Array<Fast>>()
+    }
+
     fun checkState() {  // TODO: problematic, refactor
         viewModelScope.launch {
             val ongoing = MainModel.hasOngoingFast()
@@ -36,6 +40,7 @@ class MainViewModel : ViewModel() {
                 null -> MainModel.getTargetDurationFromDb()
                 else -> MainModel.targetDuration
             }
+            fastLog.value = getAllFinishedFasts()
         }
     }
 

@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 
-class LogFragment : Fragment() {
+class LogFragment() : Fragment() {
 
     private val model: MainViewModel by activityViewModels()
+    private val adapter: LogAdapter = LogAdapter(emptyArray())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,10 +27,14 @@ class LogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launchWhenResumed {
-            val recView = view.findViewById<RecyclerView>(R.id.logEvents)
-            recView.adapter = LogAdapter(model.getAllFinishedFasts())
+        val logObserver = Observer<Array<Fast>> { newArr ->
+            adapter.fastSet = newArr.reversedArray()
+            adapter.notifyDataSetChanged()
         }
+        model.fastLog.observe(viewLifecycleOwner, logObserver)
+
+        val recView = view.findViewById<RecyclerView>(R.id.logEvents)
+        recView.adapter = adapter
     }
 
 }
