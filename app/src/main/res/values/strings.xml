@@ -21,4 +21,5 @@
     <string name="timer">Timer</string>
     <string name="log">Log</string>
     <string name="log_empty">No logged fasts yet</string>
+    <string name="log_fast_dur_target" translatable="false">%02d h %02d min / %02d h</string>
 </resources>

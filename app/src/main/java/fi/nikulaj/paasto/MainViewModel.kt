@@ -1,5 +1,6 @@
 package fi.nikulaj.paasto
 
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -87,4 +88,5 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    suspend fun getAllFinishedFasts() = MainModel.getAllFinishedFasts()
 }
