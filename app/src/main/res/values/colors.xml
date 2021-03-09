@@ -6,4 +6,6 @@
     <color name="textOnPrimary">#000000</color>
     <color name="background">#342E37</color>
     <color name="textOnBackground">#ffffff</color>
+    <color name="dangerBad">#FF312E</color>
+    <color name="warning">#FF8811</color>
 </resources>

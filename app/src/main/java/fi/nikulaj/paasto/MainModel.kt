@@ -28,6 +28,9 @@ interface FastDao {
     @Query("SELECT * FROM fast WHERE start_time IS NULL AND end_time IS NULL AND target_duration IS NOT NULL")
     suspend fun getTargetOnly(): Fast?
 
+    @Query("SELECT * FROM fast WHERE end_time IS NOT NULL")
+    suspend fun getAllFinished(): Array<Fast>
+
     @Insert
     suspend fun insert(fast: Fast)
 
@@ -137,4 +140,6 @@ object MainModel {
         ongoing.stopTime = stopTime
         fastDao.update(ongoing)
     }
+
+    suspend fun getAllFinishedFasts(): Array<Fast> = fastDao.getAllFinished()
 }

@@ -28,3 +28,13 @@ fun getDateStringFromMillis(activity: Activity, millis: Long?): String {
         activity.getString(R.string.num_invalid)
     }
 }
+
+fun getDayMonthFromMillis(millis: Long): Pair<Int, Int> {
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = millis
+
+    val day = cal.get(Calendar.DAY_OF_MONTH)
+    val month = cal.get(Calendar.MONTH)
+
+    return Pair(day, month)
+}

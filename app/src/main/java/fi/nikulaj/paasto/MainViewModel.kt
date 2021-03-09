@@ -1,5 +1,6 @@
 package fi.nikulaj.paasto
 
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,6 +20,10 @@ class MainViewModel : ViewModel() {
         MutableLiveData<Long?>()
     }
 
+    val fastLog: MutableLiveData<Array<Fast>> by lazy {
+        MutableLiveData<Array<Fast>>()
+    }
+
     fun checkState() {  // TODO: problematic, refactor
         viewModelScope.launch {
             val ongoing = MainModel.hasOngoingFast()
@@ -35,6 +40,7 @@ class MainViewModel : ViewModel() {
                 null -> MainModel.getTargetDurationFromDb()
                 else -> MainModel.targetDuration
             }
+            fastLog.value = getAllFinishedFasts()
         }
     }
 
@@ -87,4 +93,5 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    suspend fun getAllFinishedFasts() = MainModel.getAllFinishedFasts()
 }
