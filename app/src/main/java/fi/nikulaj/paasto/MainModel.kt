@@ -142,4 +142,6 @@ object MainModel {
     }
 
     suspend fun getAllFinishedFasts(): Array<Fast> = fastDao.getAllFinished()
+
+    suspend fun getLastFast(): Fast? = fastDao.getLast()
 }

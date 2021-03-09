@@ -101,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="fastButton,fastTime"
+        app:constraint_referenced_ids="fastButton,fastTime,timeSinceLastLabel"
         tools:layout_editor_absoluteY="589dp" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -111,5 +111,16 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="fastButton,fastTime"
         tools:layout_editor_absoluteY="589dp" />
+
+    <TextView
+        android:id="@+id/timeSinceLastLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/time_since_last_fast"
+        android:textColor="@color/textOnBackground"
+        app:layout_constraintBottom_toTopOf="@+id/fastTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

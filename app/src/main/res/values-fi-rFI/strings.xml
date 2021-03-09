@@ -14,4 +14,5 @@
     <string name="fast_target">Paaston tavoiteaika</string>
     <string name="timer">Ajastin</string>
     <string name="log">Loki</string>
+    <string name="time_since_last_fast">Aikaa viime paastosta</string>
 </resources>

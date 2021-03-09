@@ -11,12 +11,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import kotlin.math.abs
 
 class TimerFragment : Fragment() {
 
     var targetReachedView: TextView? = null
     var fastStart: Long? = null
     var targetTime: Long? = null
+    var fastState: FastState? = null
 
     var showRemaining: Boolean? = null
         get() {
@@ -45,8 +47,8 @@ class TimerFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_timer, container, false)
@@ -56,12 +58,15 @@ class TimerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val fastButton = view.findViewById<Button>(R.id.fastButton)
+        val noFastLabel = view.findViewById<TextView>(R.id.timeSinceLastLabel)
         val buttonObserver = Observer<FastState> { newState ->
-            val newText = when (newState) {
-                FastState.EAT -> R.string.fast_start
-                FastState.FAST -> R.string.fast_stop
+            val (newText, tooltipVis) = when (newState) {
+                FastState.EAT -> Pair(R.string.fast_start, View.VISIBLE)
+                FastState.FAST -> Pair(R.string.fast_stop, View.INVISIBLE)
             }
             fastButton.text = getString(newText)
+            noFastLabel.visibility = tooltipVis
+            fastState = newState
         }
         model.buttonState.observe(viewLifecycleOwner, buttonObserver)
 
@@ -100,18 +105,21 @@ class TimerFragment : Fragment() {
         targetReachedView = view.findViewById(R.id.targetReachedAt)
     }
 
-    private fun longToHMSString(time: Long?): String {
+    private fun longToHMSString(time: Long?, useNeutralFormat: Boolean = false): String {
         return if (time != null) {
             val (hours, minutes, seconds) = millisToHMS(kotlin.math.abs(time))
 
-            val timeFmt =
-                if (!showRemaining!!) {
+            val timeFmt = when {
+                useNeutralFormat -> {
                     getString(R.string.timer_format)
-                } else if (time > 0) {
+                }
+                time < 0 -> {
                     getString(R.string.neg_timer_format)
-                } else {
+                }
+                else -> {
                     getString(R.string.pos_timer_format)
                 }
+            }
             timeFmt.format(hours, minutes, seconds)
         } else {
             getString(R.string.num_invalid)
@@ -120,9 +128,9 @@ class TimerFragment : Fragment() {
 
     private fun updateTargetReachedTime() {
         val targetReachedAt =
-                when(targetTime) {
+                when (targetTime) {
                     null -> null
-                    else -> when(fastStart) {
+                    else -> when (fastStart) {
                         null -> System.currentTimeMillis() + targetTime!!
                         else -> fastStart!! + targetTime!!
                     }
@@ -131,12 +139,28 @@ class TimerFragment : Fragment() {
     }
 
     fun updateTime() {
-        val time = if (showRemaining!!) {
-            model.getTimeToTarget()
-        } else {
-            model.getFastTime()
+        var neutral = false
+        val time = when (fastState) {
+            FastState.FAST ->
+                if (showRemaining!!) {
+                    when (val timeToTarget = model.getTimeToTarget()) {
+                        null -> null
+                        else -> -timeToTarget
+                    }
+                } else {
+                    neutral = true
+                    model.getFastTime()
+                }
+            FastState.EAT -> when (model.lastFastStop) {
+                null -> null
+                else -> {
+                    neutral = true
+                    abs(System.currentTimeMillis() - model.lastFastStop!!)
+                }
+            }
+            else -> null
         }
-        fastTime.text = longToHMSString(time)
+        fastTime.text = longToHMSString(time, neutral)
     }
 
 }

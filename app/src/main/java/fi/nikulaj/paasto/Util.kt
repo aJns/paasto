@@ -27,7 +27,6 @@ fun getDateStringFromMillis(activity: Activity, millis: Long?): String {
 
         dateFmtr.format(cal.time) + " " + timeFmtr.format(cal.time)
     } else {
-
         activity.getString(R.string.num_invalid)
     }
 }
