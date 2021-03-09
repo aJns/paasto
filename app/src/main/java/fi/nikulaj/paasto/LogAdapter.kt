@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 class LogAdapter(var fastSet: Array<Fast>) : RecyclerView.Adapter<LogAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,6 +24,13 @@ class LogAdapter(var fastSet: Array<Fast>) : RecyclerView.Adapter<LogAdapter.Vie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val fast = fastSet[position]
+        setFastDurTarget(holder, fast)
+        setDates(holder, fast)
+    }
+
+    override fun getItemCount() = fastSet.size
+
+    private fun setFastDurTarget(holder: ViewHolder, fast: Fast) {
         val (target, metTarget) = when(fast.targetDuration)
         {
             null -> Pair(null, null)
@@ -50,5 +58,16 @@ class LogAdapter(var fastSet: Array<Fast>) : RecyclerView.Adapter<LogAdapter.Vie
         }
     }
 
-    override fun getItemCount() = fastSet.size
+    private fun setDates(holder: LogAdapter.ViewHolder, fast: Fast) {
+        val (startDay, startMonth) = getDayMonthFromMillis(fast.startTime)
+        val (endDay, endMonth) = getDayMonthFromMillis(fast.stopTime!!)
+
+        holder.dates.text = when (startMonth == endMonth) {
+            true -> when(startDay == endDay) {
+                true -> "%02d.%02d.".format(startDay, startMonth)
+                false -> "%02d. - %02d.%02d.".format(startDay, endDay, endMonth)
+            }
+            false -> "%02d.%02d. - %02d.%02d.".format(startDay, startMonth, endDay, endMonth)
+        }
+    }
 }
