@@ -69,7 +69,6 @@ class TimerFragment : Fragment() {
         val startTimeObserver = Observer<Long?> { newTime ->
             fastStartTime.text = getDateStringFromMillis(requireActivity(), newTime)
             fastStart = newTime
-            updateTargetReachedTime()
         }
         model.fastStart.observe(viewLifecycleOwner, startTimeObserver)
 
@@ -84,7 +83,6 @@ class TimerFragment : Fragment() {
                 getString(R.string.num_invalid)
             }
             targetTime = newTarget
-            updateTargetReachedTime()
         }
         model.targetDuration.observe(viewLifecycleOwner, targetDurationObserver)
 
@@ -95,13 +93,14 @@ class TimerFragment : Fragment() {
             override fun run() {
                 handler.postDelayed(this, 200)
                 updateTime()
+                updateTargetReachedTime()
             }
         })
 
         targetReachedView = view.findViewById(R.id.targetReachedAt)
     }
 
-    fun longToHMSString(time: Long?): String {
+    private fun longToHMSString(time: Long?): String {
         return if (time != null) {
             val (hours, minutes, seconds) = millisToHMS(kotlin.math.abs(time))
 
@@ -119,13 +118,15 @@ class TimerFragment : Fragment() {
         }
     }
 
-    fun updateTargetReachedTime() {
+    private fun updateTargetReachedTime() {
         val targetReachedAt =
-            if (fastStart != null && targetTime != null) {
-                fastStart!! + targetTime!!
-            } else {
-                null
-            }
+                when(targetTime) {
+                    null -> null
+                    else -> when(fastStart) {
+                        null -> System.currentTimeMillis() + targetTime!!
+                        else -> fastStart!! + targetTime!!
+                    }
+                }
         targetReachedView!!.text = getDateStringFromMillis(requireActivity(), targetReachedAt)
     }
 

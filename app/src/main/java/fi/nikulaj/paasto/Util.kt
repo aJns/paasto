@@ -1,8 +1,12 @@
 package fi.nikulaj.paasto
 
 import android.app.Activity
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
+val dateFmtr = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT)
+val timeFmtr = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
 
 fun millisToHMS(millis: Long): Triple<Long, Long, Long> {
 
@@ -20,9 +24,8 @@ fun getDateStringFromMillis(activity: Activity, millis: Long?): String {
     return if (millis != null) {
         val cal = Calendar.getInstance()
         cal.timeInMillis = millis
-        val fmtr = SimpleDateFormat.getDateTimeInstance()
 
-        fmtr.format(cal.time)
+        dateFmtr.format(cal.time) + " " + timeFmtr.format(cal.time)
     } else {
 
         activity.getString(R.string.num_invalid)
