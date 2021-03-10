@@ -44,7 +44,7 @@
                 android:textSize="@dimen/textM" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch2"
+                android:id="@+id/fastEndReminderSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textOnBackground"
@@ -65,7 +65,7 @@
                 android:textSize="@dimen/textM" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch3"
+                android:id="@+id/fastStartReminderSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textOnBackground"
@@ -86,7 +86,7 @@
                 android:textSize="@dimen/textM" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/feedingTimeTextIn"
                 android:layout_width="68dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
