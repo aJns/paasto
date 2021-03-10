@@ -16,12 +16,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        var db: AppDatabase? = null
-        fun getDatabase(): AppDatabase? {
-            return db
-        }
-    }
 
     private var fastStart: Long? = null
     private val model: MainViewModel by viewModels()
@@ -42,20 +36,13 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        else -> {
-            super.onOptionsItemSelected(item)
-        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.appBar))
-
-        if (db == null) {
-            db =
-                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
-        }
 
         val startTimeObserver = Observer<Long?> { newTime ->
             fastStart = newTime

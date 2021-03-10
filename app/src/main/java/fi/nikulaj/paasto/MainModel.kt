@@ -1,8 +1,11 @@
 package fi.nikulaj.paasto
 
+import android.content.Context
+import androidx.core.content.ContextCompat
 import androidx.room.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 
 enum class FastState {
     FAST,
@@ -43,13 +46,17 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun fastDao(): FastDao
 }
 
-object MainModel {
-    val db: AppDatabase by lazy {
-        MainActivity.getDatabase()!!
-    }
+class MainModel(private val fastDao: FastDao) {
+    companion object {
+        private var model: MainModel? = null
 
-    val fastDao by lazy {
-        db.fastDao()
+        fun getModelInstance(appContext: Context): MainModel {
+            if (model == null) {
+                val db = Room.databaseBuilder(appContext, AppDatabase::class.java, "fast-db").build()
+                model = MainModel(db.fastDao())
+            }
+            return model!!
+        }
     }
 
     var targetDuration: Long? = null
