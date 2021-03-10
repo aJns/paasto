@@ -2,6 +2,7 @@ package fi.nikulaj.paasto
 
 import ViewAdapter
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
     private var fastStart: Long? = null
     private val model: MainViewModel by viewModels()
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
