@@ -1,7 +1,6 @@
 package fi.nikulaj.paasto
 
 import android.app.Activity
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 

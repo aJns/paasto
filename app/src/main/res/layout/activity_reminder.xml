@@ -78,11 +78,11 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/feedingTimeLabel"
                 android:layout_width="248dp"
                 android:layout_height="65dp"
                 android:text="@string/eating_time"
-                android:textColor="@color/textOnBackground"
+                android:textColor="@color/enabled_selector"
                 android:textSize="@dimen/textM" />
 
             <EditText
@@ -93,7 +93,7 @@
                 android:gravity="right"
                 android:importantForAutofill="no"
                 android:inputType="number"
-                android:textColor="@color/primary"
+                android:textColor="@color/primary_enabled_selector"
                 app:backgroundTint="@color/primaryLight"
                 tools:text="420" />
 

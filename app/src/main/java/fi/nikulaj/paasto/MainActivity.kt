@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_reminders -> {
             val intent = Intent(this, SetReminderActivity::class.java)
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -42,7 +42,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        else -> { super.onOptionsItemSelected(item) }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         if (db == null) {
             db =
-                    Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
+                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
         }
 
         val startTimeObserver = Observer<Long?> { newTime ->
@@ -89,10 +91,10 @@ class MainActivity : AppCompatActivity() {
             model.changeFastStartTime(newStart)
         }
         dateTimePicker.showWithCallback(
-                supportFragmentManager,
-                dateTimePicker.tag,
-                fastStart!!,
-                callback
+            supportFragmentManager,
+            dateTimePicker.tag,
+            fastStart!!,
+            callback
         )
     }
 

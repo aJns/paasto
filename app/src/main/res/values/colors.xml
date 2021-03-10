@@ -8,4 +8,5 @@
     <color name="textOnBackground">#ffffff</color>
     <color name="dangerBad">#FF312E</color>
     <color name="warning">#FF8811</color>
+    <color name="textDisabled">#a3a3a3</color>
 </resources>

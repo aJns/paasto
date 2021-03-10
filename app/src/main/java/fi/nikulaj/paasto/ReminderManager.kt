@@ -1,3 +1,5 @@
+package fi.nikulaj.paasto
+
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import fi.nikulaj.paasto.R
@@ -23,25 +25,28 @@ class ReminderManager(private val activity: AppCompatActivity) {
             field = setPreferenceField(field, value!!, R.string.feeding_time_length)
         }
 
-    private inline fun <reified T: Any> getPreferenceField(fieldIn: T?, id: Int, default: T): T? {
+    private inline fun <reified T : Any> getPreferenceField(fieldIn: T?, id: Int, default: T): T? {
         var field = fieldIn
         if (field == null) {
             val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
-            field = when(T::class) {
-                Boolean::class -> sharedPref.getBoolean(activity.getString(id), default as Boolean) as T
-                Int::class -> sharedPref.getInt(activity.getString(id), default as Int) as T
+            field = when (T::class) {
+                Boolean::class -> sharedPref.getBoolean(
+                    activity.getString(id),
+                    default as Boolean
+                ) as T?
+                Int::class -> sharedPref.getInt(activity.getString(id), default as Int) as T?
                 else -> null
             }
         }
         return field
     }
 
-    private inline fun <reified T: Any> setPreferenceField(fieldIn: T?, value: T?, id: Int): T? {
+    private inline fun <reified T : Any> setPreferenceField(fieldIn: T?, value: T?, id: Int): T? {
         var field = fieldIn
         if (field != value && value != null) {
             field = value
             val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
-            when(T::class) {
+            when (T::class) {
                 Boolean::class -> {
                     with(sharedPref.edit()) {
                         putBoolean(activity.getString(id), value as Boolean)
@@ -59,5 +64,4 @@ class ReminderManager(private val activity: AppCompatActivity) {
         }
         return field
     }
-}
 }

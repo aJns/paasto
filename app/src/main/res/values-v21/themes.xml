@@ -15,7 +15,7 @@
 
 
     <style name="PaastoDateTimePickerDialogTheme" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="colorAccent">@color/primary</item>-->
+        <item name="colorAccent">@color/primaryDark</item>-->
     </style>
 
     <style name="Theme.Paasto.NoActionBar">
