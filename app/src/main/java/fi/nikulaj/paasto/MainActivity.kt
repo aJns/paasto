@@ -1,6 +1,7 @@
 package fi.nikulaj.paasto
 
 import ViewAdapter
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -33,7 +34,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
         R.id.action_reminders -> {
             val intent = Intent(this, SetReminderActivity::class.java)
-            startActivity(intent)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            } else {
+                startActivity(intent)
+            }
             true
         }
 
