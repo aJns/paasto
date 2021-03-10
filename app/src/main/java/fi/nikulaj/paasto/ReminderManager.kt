@@ -2,8 +2,12 @@ package fi.nikulaj.paasto
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.*
 import fi.nikulaj.paasto.R
+import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
+
+const val REMINDER_WORK_REQUEST = "reminderWorkRequest"
 
 class ReminderManager(private val activity: AppCompatActivity) {
 
@@ -63,5 +67,17 @@ class ReminderManager(private val activity: AppCompatActivity) {
             }
         }
         return field
+    }
+
+    fun scheduleNotificationWorker() {
+        val workMan = WorkManager.getInstance(activity)
+
+        val reminderWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(1, TimeUnit.SECONDS)
+            .addTag(REMINDER_WORK_REQUEST)
+            .setInputData(workDataOf(
+                NotificationWorker.NOTIFY_FAST_END to true
+            ))
+            .build()
+        workMan.enqueueUniquePeriodicWork(REMINDER_WORK_REQUEST, ExistingPeriodicWorkPolicy.REPLACE, reminderWorkRequest)
     }
 }
