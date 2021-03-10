@@ -24,4 +24,5 @@
     <string name="log_fast_dur_target" translatable="false">%02d h %02d min / %02d h</string>
     <string name="time_since_last_fast">Time since last fast</string>
     <string name="action_reminders">Reminders</string>
+    <string name="reminder_title">Reminders</string>
 </resources>

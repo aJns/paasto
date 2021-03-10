@@ -19,6 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SetReminderActivity"
+            android:label="@string/reminder_title"
+            android:theme="@style/Theme.Paasto.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

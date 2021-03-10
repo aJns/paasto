@@ -1,8 +1,10 @@
 package fi.nikulaj.paasto
 
 import ViewAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,16 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+        R.id.action_reminders -> {
+            val intent = Intent(this, SetReminderActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        else -> { super.onOptionsItemSelected(item) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         if (db == null) {
             db =
-                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
+                    Room.databaseBuilder(applicationContext, AppDatabase::class.java, "fast-db").build()
         }
 
         val startTimeObserver = Observer<Long?> { newTime ->
@@ -72,10 +84,10 @@ class MainActivity : AppCompatActivity() {
             model.changeFastStartTime(newStart)
         }
         dateTimePicker.showWithCallback(
-            supportFragmentManager,
-            dateTimePicker.tag,
-            fastStart!!,
-            callback
+                supportFragmentManager,
+                dateTimePicker.tag,
+                fastStart!!,
+                callback
         )
     }
 
