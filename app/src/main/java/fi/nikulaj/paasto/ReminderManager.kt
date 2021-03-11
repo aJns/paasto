@@ -75,7 +75,7 @@ class ReminderManager(private val activity: AppCompatActivity) {
         val reminderWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(1, TimeUnit.SECONDS)
             .addTag(REMINDER_WORK_REQUEST)
             .setInputData(workDataOf(
-                NotificationWorker.NOTIFY_FAST_END to true
+                NotificationWorker.NOTIFY_FAST_END to notifyFastEnd
             ))
             .build()
         workMan.enqueueUniquePeriodicWork(REMINDER_WORK_REQUEST, ExistingPeriodicWorkPolicy.REPLACE, reminderWorkRequest)

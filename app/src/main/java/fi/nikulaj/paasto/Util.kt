@@ -30,6 +30,13 @@ fun getDateStringFromMillis(activity: Activity, millis: Long?): String {
     }
 }
 
+fun getTimeStringFromMillis(millis: Long): String {
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = millis
+
+    return timeFmtr.format(cal.time)
+}
+
 fun getDayMonthFromMillis(millis: Long): Pair<Int, Int> {
     val cal = Calendar.getInstance()
     cal.timeInMillis = millis

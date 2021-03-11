@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_fast_end_title">Fast target reached!</string>
+    <string name="notification_fast_end_content">Fast target reached at %1$s</string>
+</resources>

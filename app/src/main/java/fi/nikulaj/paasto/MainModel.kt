@@ -156,8 +156,13 @@ class MainModel(private val fastDao: FastDao) {
         if(!hasOngoingFast()) {
             return false
         }
-        val startPlusTarget = getOngoingFastStart() + (targetDuration ?: return false)
+        return System.currentTimeMillis() > fastTargetReachedAt()!!
+    }
 
-        return System.currentTimeMillis() > startPlusTarget
+    suspend fun fastTargetReachedAt(): Long? {
+        if(!hasOngoingFast()) {
+            return null
+        }
+        return getOngoingFastStart() + (targetDuration ?: return null)
     }
 }

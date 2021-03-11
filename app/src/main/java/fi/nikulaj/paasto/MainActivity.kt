@@ -21,8 +21,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-const val CHANNEL_ID = "PAASTO_KANAVA"
-
 class MainActivity : AppCompatActivity() {
 
     private var fastStart: Long? = null
@@ -53,32 +51,12 @@ class MainActivity : AppCompatActivity() {
             val name = getString(R.string.app_name)
             val descriptionText = getString(R.string.notification_channel_description)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            val channel = NotificationChannel(getString(R.string.notification_channel_id), name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =
                 getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-    private fun showNotification() {
-
-        val intent = Intent(this, MainActivity::class.java)
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-
-        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("älämölö")
-            .setContentText("mölöälä")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            val notificationId = 1
-            notify(notificationId, builder.build())
         }
     }
 
@@ -107,8 +85,6 @@ class MainActivity : AppCompatActivity() {
                 else -> TODO("not implemented")
             }
         }.attach()
-
-        showNotification()
     }
 
     fun fastButtonClicked(view: View) {
