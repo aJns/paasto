@@ -49,7 +49,7 @@ object EndFastDialog : DialogFragment() {
         updateFastDuration()
     }
 
-    fun updateFastDuration() {
+    private fun updateFastDuration() {
         val duration = fastEnd!! - fastStart!!
         val (hours, minutes, _) = millisToHMS(kotlin.math.abs(duration))
 

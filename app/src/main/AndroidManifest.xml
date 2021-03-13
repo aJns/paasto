@@ -24,6 +24,7 @@
             android:label="@string/reminder_title"
             android:theme="@style/Theme.Paasto.NoActionBar">
         </activity>
+        <receiver android:name=".NotificationPublisher"/>
     </application>
 
 </manifest>
