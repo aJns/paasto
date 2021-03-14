@@ -25,7 +25,7 @@ class NotificationPublisher: BroadcastReceiver() {
         val contentText = context.getString(R.string.notification_fast_end_content, getTimeStringFromMillis(reachedAt))
 
         val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.getString(R.string.notification_fast_end_title))
                 .setContentText(contentText)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
