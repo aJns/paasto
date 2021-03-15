@@ -20,4 +20,6 @@
     <string name="fast_end_notify">Näytä ilmoitus kun tavoiteaika on saavutettu</string>
     <string name="eating_time">Aika jonka jälkeen paastomuistutus näytetään</string>
     <string name="start_reminder">Näytä paaston aloitusmuistutus</string>
+    <string name="reminder_title">Muistutukset</string>
+    <string name="action_reminders">Muistutukset</string>
 </resources>
