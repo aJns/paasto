@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
             tab.text = when (position) {
                 0 -> getString(R.string.timer)
                 1 -> getString(R.string.log)
+                2 -> getString(R.string.progress)
                 else -> TODO("not implemented")
             }
         }.attach()

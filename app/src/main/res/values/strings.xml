@@ -29,4 +29,5 @@
     <string name="eating_time">Show reminder after</string>
     <string name="start_reminder">Show fast start reminder</string>
     <string name="notification_channel_description" translatable="false">Paasto reminder notifications</string>
+    <string name="progress">Progress</string>
 </resources>
