@@ -2,4 +2,6 @@
 <resources>
     <string name="notification_fast_end_title">Fast target reached!</string>
     <string name="notification_fast_end_content">Fast target reached at %1$s</string>
+    <string name="notification_fast_start_title">Time to start your fast</string>
+    <string name="notification_fast_start_content">%1$s since your ending your fast</string>
 </resources>

@@ -32,16 +32,25 @@ class NotificationPublisher: BroadcastReceiver() {
         showNotification(context, type, time)
     }
 
-    private fun showNotification(context: Context, type: NotificationType, reachedAt: String?) {
+    private fun showNotification(context: Context, type: NotificationType, stringParam: String?) {
         val intent = Intent(context, MainActivity::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        val contentText = context.getString(R.string.notification_fast_end_content, reachedAt)
+        val (title, text) = when(type) {
+            NotificationType.FastTargetReached -> {
+                Pair(context.getString(R.string.notification_fast_end_title),
+                        context.getString(R.string.notification_fast_end_content, stringParam))
+            }
+            NotificationType.TimeSinceLastFast -> {
+                Pair(context.getString(R.string.notification_fast_start_title),
+                        context.getString(R.string.notification_fast_start_content, stringParam))
+            }
+        }
 
         val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(context.getString(R.string.notification_fast_end_title))
-                .setContentText(contentText)
+                .setContentTitle(title)
+                .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
