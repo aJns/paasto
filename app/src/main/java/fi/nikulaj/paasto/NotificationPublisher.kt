@@ -7,22 +7,36 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.work.CoroutineWorker
-import androidx.work.Worker
-import androidx.work.WorkerParameters
+
+enum class NotificationType(val type: Int) {
+    FastTargetReached(1),
+    TimeSinceLastFast(2);
+
+    companion object {
+        fun getTypeFromInt(value: Int) = when(value) {
+            1 -> FastTargetReached
+            2 -> TimeSinceLastFast
+            else -> TODO()
+        }
+    }
+}
 
 class NotificationPublisher: BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        // TODO: intentistä vois ottaa tarvittavat datat, eli lopetuskellonajan
-        showNotification(context, 0)
+        Log.d("NotificationPublisher", "It's notification time motherfucker")
+
+        val type = NotificationType.getTypeFromInt(intent.getIntExtra(NOTIFY_TYPE, -1))
+        val time = intent.getStringExtra(NOTIFY_INFO)
+
+        showNotification(context, type, time)
     }
 
-    private fun showNotification(context: Context, reachedAt: Long) {
+    private fun showNotification(context: Context, type: NotificationType, reachedAt: String?) {
         val intent = Intent(context, MainActivity::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        val contentText = context.getString(R.string.notification_fast_end_content, getTimeStringFromMillis(reachedAt))
+        val contentText = context.getString(R.string.notification_fast_end_content, reachedAt)
 
         val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
                 .setSmallIcon(R.drawable.ic_notification)
@@ -41,5 +55,8 @@ class NotificationPublisher: BroadcastReceiver() {
         const val NOTIFY_FAST_END = "notifyFastEnd"
         const val NOTIFY_FAST_START = "notifyFastStart"
         const val NOTIFY_FEEDING_DURATION = "notifyFeedingDuration"
+
+        const val NOTIFY_TYPE = "notifyType"
+        const val NOTIFY_INFO = "notifyTime"
     }
 }

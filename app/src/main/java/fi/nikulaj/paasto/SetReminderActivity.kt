@@ -32,14 +32,11 @@ class SetReminderActivity : AppCompatActivity() {
         setupFastEndReminderSwitch(findViewById(R.id.fastEndReminderSwitch))
         setupFastStartReminderSwitch(findViewById(R.id.fastStartReminderSwitch))
         setupFeedingTimeIn(feedingTimeInput!!)
-
-        reminderManager.scheduleNotifications()
     }
 
     private fun setupFastEndReminderSwitch(switch: SwitchCompat) {
         switch.setOnCheckedChangeListener { _, isOn ->
             reminderManager.notifyFastEnd = isOn
-            reminderManager.scheduleNotifications()
         }
         switch.isChecked = reminderManager.notifyFastEnd ?: false
     }
@@ -49,7 +46,6 @@ class SetReminderActivity : AppCompatActivity() {
             reminderManager.notifyFastStart = isOn
             feedingTimeInput!!.isEnabled = isOn
             feedingTimeLabel!!.isEnabled = isOn
-            reminderManager.scheduleNotifications()
         }
 
         switch.isChecked = reminderManager.notifyFastStart ?: false
@@ -70,7 +66,6 @@ class SetReminderActivity : AppCompatActivity() {
                 } catch (e: NumberFormatException) {
                     Log.e(TAG, "failed to parse feeding time")
                 }
-                reminderManager.scheduleNotifications()
             }
         })
         textEdit.setText("%d".format(reminderManager.feedingTimeDuration))
