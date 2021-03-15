@@ -12,7 +12,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var fastOngoing: Boolean? = null
     var lastFastStop: Long? = null
 
-    val buttonState: MutableLiveData<FastState> by lazy {
+    val timerState: MutableLiveData<FastState> by lazy {
         MutableLiveData<FastState>()
     }
     val fastStart: MutableLiveData<Long?> by lazy {
@@ -32,16 +32,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun checkState() {  // TODO: problematic, refactor
         viewModelScope.launch {
-            val ongoing = model.hasOngoingFast()
-            if (ongoing) {
-                fastStart.value = model.getOngoingFastStart()
-                buttonState.postValue(FastState.FAST)
-            } else {
-                fastStart.value = null
-                buttonState.postValue(FastState.EAT)
-            }
-            fastOngoing = ongoing
-
             targetDuration.value = when (model.targetDuration) {
                 null -> model.getTargetDurationFromDb()
                 else -> model.targetDuration
@@ -49,6 +39,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             fastLog.value = getAllFinishedFasts()
 
             lastFastStop = model.getLastFast()?.stopTime
+
+            val ongoing = model.hasOngoingFast()
+            if (ongoing) {
+                fastStart.value = model.getOngoingFastStart()
+                timerState.postValue(FastState.FAST)
+            } else {
+                fastStart.value = null
+                timerState.postValue(FastState.EAT)
+            }
+            fastOngoing = ongoing
         }
     }
 

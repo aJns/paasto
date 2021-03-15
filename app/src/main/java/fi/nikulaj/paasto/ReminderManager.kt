@@ -69,7 +69,7 @@ class ReminderManager(application: Application) {
         return field
     }
 
-    fun scheduleNotifications(activity: AppCompatActivity, type: NotificationType, showAt: Long, notificationInfo: String?) {
+    fun scheduleNotifications(activity: AppCompatActivity, type: NotificationType, showAfter: Long, notificationInfo: String?) {
         Log.d("ReminderManager", "Scheduling notification...")
 
         when(type) {
@@ -83,13 +83,15 @@ class ReminderManager(application: Application) {
             intent.putExtra(NotificationPublisher.NOTIFY_INFO, notificationInfo)
             PendingIntent.getBroadcast(activity, 0, intent, 0)
         }
-        // TODO: Alarms with equivalent intents replace the previous alarm, see intent filter doc for more
+        // Alarms with equivalent intents replace the previous alarm, see intent filter doc for more
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            alarmMgr.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, showAt, alarmIntent)
+            alarmMgr.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, showAfter, alarmIntent)
         } else {
-            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, showAt, alarmIntent)
+            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, showAfter, alarmIntent)
         }
+
+        val showAt = System.currentTimeMillis() + showAfter
         Log.d("ReminderManager", "Scheduled alarm for $showAt elapsed realtime.")
     }
 }

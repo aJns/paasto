@@ -7,7 +7,6 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -81,6 +80,32 @@ class MainActivity : AppCompatActivity() {
                 else -> TODO("not implemented")
             }
         }.attach()
+
+        val stateObserver = Observer<FastState> { newState ->
+            when (newState) {
+                FastState.EAT -> {
+                    val feedingTimeHours = model.reminderManager.feedingTimeDuration!!
+                    val feedingTimeMillis = feedingTimeHours *60*60*1000
+                    val targetReachedAt = feedingTimeMillis + (model.lastFastStop ?: return@Observer)
+                    val timeToTarget: Long = targetReachedAt - System.currentTimeMillis()
+                    if (timeToTarget > 0) {
+                        model.reminderManager
+                                .scheduleNotifications(this, NotificationType.TimeSinceLastFast,
+                                        timeToTarget, "$feedingTimeHours h")
+                    }
+                }
+                FastState.FAST -> {
+                    val timeToTarget: Long = model.getTimeToTarget() ?: return@Observer
+                    if (timeToTarget > 0) {
+                        val targetReachedAt = System.currentTimeMillis() + timeToTarget
+                        model.reminderManager
+                                .scheduleNotifications(this, NotificationType.FastTargetReached,
+                                        timeToTarget, getTimeStringFromMillis(targetReachedAt))
+                    }
+                }
+            }
+        }
+        model.timerState.observe(this, stateObserver)
     }
 
     fun fastButtonClicked(view: View) {
@@ -88,16 +113,6 @@ class MainActivity : AppCompatActivity() {
             EndFastDialog.show(supportFragmentManager, EndFastDialog.tag)
         } else {
             model.startStopFast()
-
-            // TODO: joku callbäkki? ViewModelissa siis kestää että paaston aloitus päivittyy
-            val timeToTarget = 0 // model.getTimeToTarget()
-            if (timeToTarget != null) {
-                val targetReachedAt = System.currentTimeMillis() + timeToTarget
-                val targetReachedElapsed = SystemClock.elapsedRealtime() + timeToTarget
-                model.reminderManager
-                        .scheduleNotifications(this, NotificationType.FastTargetReached,
-                                targetReachedElapsed, getTimeStringFromMillis(targetReachedAt))
-            }
         }
     }
 

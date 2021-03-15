@@ -70,7 +70,7 @@ class TimerFragment : Fragment() {
             noFastLabel.visibility = tooltipVis
             fastState = newState
         }
-        model.buttonState.observe(viewLifecycleOwner, buttonObserver)
+        model.timerState.observe(viewLifecycleOwner, buttonObserver)
 
         val fastStartTime = view.findViewById<Button>(R.id.startTime)
         val startTimeObserver = Observer<Long?> { newTime ->
