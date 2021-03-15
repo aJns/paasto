@@ -1,7 +1,2 @@
 <resources>
-    <string name="countdown_mode_remaining" translatable="false">countdown_mode_remaining</string>
-    <string name="notify_fast_end" translatable="false">notify_fast_end</string>
-    <string name="notify_fast_start" translatable="false">notify_fast_start</string>
-    <string name="feeding_time_length" translatable="false">feeding_time_length</string>
-    <string name="reminder_work_request" translatable="false">reminderWorkRequest</string>
 </resources>

@@ -1,70 +1,65 @@
 package fi.nikulaj.paasto
 
 import android.app.AlarmManager
+import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
 
 
-const val REMINDER_WORK_REQUEST = "reminderWorkRequest"
+class ReminderManager(application: Application) {
 
-class ReminderManager(private val activity: AppCompatActivity) {
+    private val sharedPref = application.getSharedPreferences("reminder_manager_preferences", Context.MODE_PRIVATE)
+
+    private val notifyFastEndId = "notify_fast_end"
+    private val notifyFastStartId = "notify_fast_start"
+    private val feedingTimeDurationId = "feeding_time_length"
+
     var notifyFastEnd: Boolean? = null
-        get() {
-            field = getPreferenceField(field, R.string.notify_fast_end, false)
-            return field
-        }
+        get() = getPreferenceField(notifyFastEndId, false)
         set(value) {
-            field = setPreferenceField(field, value!!, R.string.notify_fast_end)
+            field = setPreferenceField(field, value!!, notifyFastEndId)
         }
 
     var notifyFastStart: Boolean? = null
-        get() = getPreferenceField(field, R.string.notify_fast_start, false)
+        get() = getPreferenceField(notifyFastStartId, false)
         set(value) {
-            field = setPreferenceField(field, value!!, R.string.notify_fast_start)
+            field = setPreferenceField(field, value!!, notifyFastStartId)
         }
 
     var feedingTimeDuration: Int? = null
-        get() = getPreferenceField(field, R.string.feeding_time_length, 6)
+        get() = getPreferenceField(feedingTimeDurationId, 6)
         set(value) {
-            field = setPreferenceField(field, value!!, R.string.feeding_time_length)
+            field = setPreferenceField(field, value!!, feedingTimeDurationId)
         }
 
-    private inline fun <reified T : Any> getPreferenceField(fieldIn: T?, id: Int, default: T): T? {
-        var field = fieldIn
-        if (field == null) {
-            val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
-            field = when (T::class) {
+    private inline fun <reified T : Any> getPreferenceField(id: String, default: T): T? {
+        return when (T::class) {
                 Boolean::class -> sharedPref.getBoolean(
-                        activity.getString(id),
+                        id,
                         default as Boolean
                 ) as T?
-                Int::class -> sharedPref.getInt(activity.getString(id), default as Int) as T?
+                Int::class -> sharedPref.getInt(id, default as Int) as T?
                 else -> null
             }
-        }
-        return field
     }
 
-    private inline fun <reified T : Any> setPreferenceField(fieldIn: T?, value: T?, id: Int): T? {
+    private inline fun <reified T : Any> setPreferenceField(fieldIn: T?, value: T?, id: String): T? {
         var field = fieldIn
-        if (field != value && value != null) {
+        if (value != null) {
             field = value
-            val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
             when (T::class) {
                 Boolean::class -> {
                     with(sharedPref.edit()) {
-                        putBoolean(activity.getString(id), value as Boolean)
+                        putBoolean(id, value as Boolean)
                         apply()
                     }
                 }
                 Int::class -> {
                     with(sharedPref.edit()) {
-                        putInt(activity.getString(id), value as Int)
+                        putInt(id, value as Int)
                         apply()
                     }
                 }
@@ -74,10 +69,8 @@ class ReminderManager(private val activity: AppCompatActivity) {
         return field
     }
 
-    fun scheduleNotifications(type: NotificationType, showAt: Long, notificationInfo: String?) {
+    fun scheduleNotifications(activity: AppCompatActivity, type: NotificationType, showAt: Long, notificationInfo: String?) {
         Log.d("ReminderManager", "Scheduling notification...")
-
-        notifyFastEnd = true
 
         when(type) {
             NotificationType.FastTargetReached -> if (notifyFastEnd != true) return
@@ -90,12 +83,13 @@ class ReminderManager(private val activity: AppCompatActivity) {
             intent.putExtra(NotificationPublisher.NOTIFY_INFO, notificationInfo)
             PendingIntent.getBroadcast(activity, 0, intent, 0)
         }
+        // TODO: Alarms with equivalent intents replace the previous alarm, see intent filter doc for more
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             alarmMgr.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, showAt, alarmIntent)
         } else {
             alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, showAt, alarmIntent)
         }
-        Log.d("ReminderManager", "Scheduled.")
+        Log.d("ReminderManager", "Scheduled alarm for $showAt elapsed realtime.")
     }
 }

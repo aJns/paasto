@@ -28,6 +28,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val model: MainModel = MainModel.getModelInstance(application)
 
+    val reminderManager = ReminderManager(application)
 
     fun checkState() {  // TODO: problematic, refactor
         viewModelScope.launch {

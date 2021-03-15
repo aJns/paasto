@@ -20,11 +20,13 @@ class TimerFragment : Fragment() {
     var targetTime: Long? = null
     var fastState: FastState? = null
 
-    var showRemaining: Boolean? = null
+    private val countDownModeKey = "countdown_mode_remaining"
+
+    private var showRemaining: Boolean? = null
         get() {
             if (field == null) {
                 val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-                field = sharedPref.getBoolean(getString(R.string.countdown_mode_remaining), true)
+                field = sharedPref.getBoolean(countDownModeKey, true)
             }
             return field
         }
@@ -33,7 +35,7 @@ class TimerFragment : Fragment() {
                 field = value
                 val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
                 with(sharedPref.edit()) {
-                    putBoolean(getString(R.string.countdown_mode_remaining), value!!)
+                    putBoolean(countDownModeKey, value!!)
                     apply()
                 }
             }

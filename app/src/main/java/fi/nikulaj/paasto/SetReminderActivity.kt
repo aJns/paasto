@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import java.lang.NumberFormatException
@@ -15,7 +16,8 @@ class SetReminderActivity : AppCompatActivity() {
     private var feedingTimeInput: EditText? = null
     private var feedingTimeLabel: TextView? = null
 
-    private val reminderManager = ReminderManager(this)
+    private val model: MainViewModel by viewModels()
+    private lateinit var reminderManager: ReminderManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,8 @@ class SetReminderActivity : AppCompatActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
+
+        reminderManager = model.reminderManager
 
         feedingTimeLabel = findViewById(R.id.feedingTimeLabel)
         feedingTimeInput = findViewById(R.id.feedingTimeTextIn)

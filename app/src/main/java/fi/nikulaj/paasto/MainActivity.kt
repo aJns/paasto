@@ -90,13 +90,13 @@ class MainActivity : AppCompatActivity() {
             model.startStopFast()
 
             // TODO: joku callbäkki? ViewModelissa siis kestää että paaston aloitus päivittyy
-            val timeToTarget = model.getTimeToTarget()
+            val timeToTarget = 0 // model.getTimeToTarget()
             if (timeToTarget != null) {
                 val targetReachedAt = System.currentTimeMillis() + timeToTarget
                 val targetReachedElapsed = SystemClock.elapsedRealtime() + timeToTarget
-                ReminderManager(this)
-                        .scheduleNotifications(NotificationType.FastTargetReached,
-                        targetReachedElapsed, getTimeStringFromMillis(targetReachedAt))
+                model.reminderManager
+                        .scheduleNotifications(this, NotificationType.FastTargetReached,
+                                targetReachedElapsed, getTimeStringFromMillis(targetReachedAt))
             }
         }
     }
@@ -107,10 +107,10 @@ class MainActivity : AppCompatActivity() {
             model.changeFastStartTime(newStart)
         }
         dateTimePicker.showWithCallback(
-            supportFragmentManager,
-            dateTimePicker.tag,
-            fastStart!!,
-            callback
+                supportFragmentManager,
+                dateTimePicker.tag,
+                fastStart!!,
+                callback
         )
     }
 
