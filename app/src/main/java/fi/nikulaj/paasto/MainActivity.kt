@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                     if (timeToTarget > 0) {
                         model.reminderManager
                                 .scheduleNotifications(this, NotificationType.TimeSinceLastFast,
-                                        timeToTarget, "$feedingTimeHours h")
+                                        targetReachedAt, "$feedingTimeHours h")
                     }
                 }
                 FastState.FAST -> {
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                         val targetReachedAt = System.currentTimeMillis() + timeToTarget
                         model.reminderManager
                                 .scheduleNotifications(this, NotificationType.FastTargetReached,
-                                        timeToTarget, getTimeStringFromMillis(targetReachedAt))
+                                        targetReachedAt, getTimeStringFromMillis(targetReachedAt))
                     }
                 }
             }
