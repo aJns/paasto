@@ -72,18 +72,23 @@ class ReminderManager(application: Application) {
     fun scheduleNotifications(activity: AppCompatActivity, type: NotificationType, showAt: Long, notificationInfo: String?) {
         Log.d("ReminderManager", "Scheduling notification...")
 
+
         when(type) {
             NotificationType.FastTargetReached -> if (notifyFastEnd != true) return
             NotificationType.TimeSinceLastFast -> if (notifyFastStart != true) return
         }
 
+        val flags = PendingIntent.FLAG_UPDATE_CURRENT
+
         val alarmMgr = activity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val alarmIntent = Intent(activity, NotificationPublisher::class.java).let { intent ->
             intent.putExtra(NotificationPublisher.NOTIFY_TYPE, type.type)
             intent.putExtra(NotificationPublisher.NOTIFY_INFO, notificationInfo)
-            PendingIntent.getBroadcast(activity, 0, intent, 0)
+            PendingIntent.getBroadcast(activity, 0, intent, flags)
         }
         // Alarms with equivalent intents replace the previous alarm, see intent filter doc for more
+
+        // TODO: Maybe this? alarmMgr.cancel(alarmIntent)
 
         val alarmType = AlarmManager.RTC_WAKEUP
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -92,6 +97,9 @@ class ReminderManager(application: Application) {
             alarmMgr.set(alarmType, showAt, alarmIntent)
         }
 
-        Log.d("ReminderManager", "Scheduled alarm for $showAt elapsed realtime.")
+        val showAtFmt = getTimeStringFromMillis(showAt)
+        val alarmTypeStr = type.toString()
+
+        Log.d("ReminderManager", "Scheduled $alarmTypeStr alarm for $showAtFmt.")
     }
 }
