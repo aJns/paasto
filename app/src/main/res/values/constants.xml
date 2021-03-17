@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fast_end_notification_id" type="id" />
+
+    <string name="notification_channel_id" translatable="false">PAASTO_CHANNEL</string>
+</resources>

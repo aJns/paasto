@@ -14,4 +14,14 @@
     <string name="fast_target">Paaston tavoiteaika</string>
     <string name="timer">Ajastin</string>
     <string name="log">Loki</string>
+    <string name="time_since_last_fast">Aikaa viime paastosta</string>
+    <string name="notification_fast_end_title">Paaston tavoiteaika saavutettu!</string>
+    <string name="notification_fast_end_content">Paastotavoite saavutettiin kello %1$s</string>
+    <string name="fast_end_notify">Näytä ilmoitus kun tavoiteaika on saavutettu</string>
+    <string name="eating_time">Aika jonka jälkeen paastomuistutus näytetään</string>
+    <string name="start_reminder">Näytä paaston aloitusmuistutus</string>
+    <string name="reminder_title">Muistutukset</string>
+    <string name="action_reminders">Muistutukset</string>
+    <string name="notification_fast_start_title">Aika aloittaa paastosi</string>
+    <string name="notification_fast_start_content">Paastosi loppumisesta on kulunut %1$s</string>
 </resources>

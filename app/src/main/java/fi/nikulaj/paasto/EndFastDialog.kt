@@ -20,8 +20,8 @@ object EndFastDialog : DialogFragment() {
     lateinit var supportFragmentManager: FragmentManager
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_end_fast_dialog, container, false)
     }
@@ -49,7 +49,7 @@ object EndFastDialog : DialogFragment() {
         updateFastDuration()
     }
 
-    fun updateFastDuration() {
+    private fun updateFastDuration() {
         val duration = fastEnd!! - fastStart!!
         val (hours, minutes, _) = millisToHMS(kotlin.math.abs(duration))
 
@@ -69,10 +69,10 @@ object EndFastDialog : DialogFragment() {
         }
 
         dateTimePicker.showWithCallback(
-            supportFragmentManager,
-            dateTimePicker.tag,
-            fastStart!!,
-            callback
+                supportFragmentManager,
+                dateTimePicker.tag,
+                fastStart!!,
+                callback
         )
     }
 
@@ -87,10 +87,10 @@ object EndFastDialog : DialogFragment() {
         }
 
         dateTimePicker.showWithCallback(
-            supportFragmentManager,
-            dateTimePicker.tag,
-            fastEnd!!,
-            callback
+                supportFragmentManager,
+                dateTimePicker.tag,
+                fastEnd!!,
+                callback
         )
     }
 

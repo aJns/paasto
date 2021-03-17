@@ -22,4 +22,11 @@
     <string name="log">Log</string>
     <string name="log_empty">No logged fasts yet</string>
     <string name="log_fast_dur_target" translatable="false">%02d h %02d min / %02d h</string>
+    <string name="time_since_last_fast">Time since last fast</string>
+    <string name="action_reminders">Reminders</string>
+    <string name="reminder_title">Reminders</string>
+    <string name="fast_end_notify">Show notification when target is reached</string>
+    <string name="eating_time">Show reminder after</string>
+    <string name="start_reminder">Show fast start reminder</string>
+    <string name="notification_channel_description" translatable="false">Paasto reminder notifications</string>
 </resources>

@@ -1,8 +1,10 @@
 package fi.nikulaj.paasto
 
+import android.content.Context
 import androidx.room.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 
 enum class FastState {
     FAST,
@@ -11,10 +13,10 @@ enum class FastState {
 
 @Entity
 data class Fast(
-    @PrimaryKey(autoGenerate = true) val uid: Int?,
-    @ColumnInfo(name = "start_time") var startTime: Long,
-    @ColumnInfo(name = "end_time") var stopTime: Long?,
-    @ColumnInfo(name = "target_duration") var targetDuration: Long?
+        @PrimaryKey(autoGenerate = true) val uid: Int?,
+        @ColumnInfo(name = "start_time") var startTime: Long,
+        @ColumnInfo(name = "end_time") var stopTime: Long?,
+        @ColumnInfo(name = "target_duration") var targetDuration: Long?
 )
 
 @Dao
@@ -43,13 +45,17 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun fastDao(): FastDao
 }
 
-object MainModel {
-    val db: AppDatabase by lazy {
-        MainActivity.getDatabase()!!
-    }
+class MainModel(private val fastDao: FastDao) {
+    companion object {
+        private var model: MainModel? = null
 
-    val fastDao by lazy {
-        db.fastDao()
+        fun getModelInstance(appContext: Context): MainModel {
+            if (model == null) {
+                val db = Room.databaseBuilder(appContext, AppDatabase::class.java, "fast-db").build()
+                model = MainModel(db.fastDao())
+            }
+            return model!!
+        }
     }
 
     var targetDuration: Long? = null
@@ -142,4 +148,20 @@ object MainModel {
     }
 
     suspend fun getAllFinishedFasts(): Array<Fast> = fastDao.getAllFinished()
+
+    suspend fun getLastFast(): Fast? = fastDao.getLast()
+
+    suspend fun fastTargetReached(): Boolean {
+        if (!hasOngoingFast()) {
+            return false
+        }
+        return System.currentTimeMillis() > fastTargetReachedAt()!!
+    }
+
+    suspend fun fastTargetReachedAt(): Long? {
+        if (!hasOngoingFast()) {
+            return null
+        }
+        return getOngoingFastStart() + (targetDuration ?: return null)
+    }
 }

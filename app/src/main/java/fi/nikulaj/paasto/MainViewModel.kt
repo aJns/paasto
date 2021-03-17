@@ -1,16 +1,17 @@
 package fi.nikulaj.paasto
 
-import androidx.fragment.app.activityViewModels
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private var fastOngoing: Boolean? = null
+    var lastFastStop: Long? = null
 
-    val buttonState: MutableLiveData<FastState> by lazy {
+    val timerState: MutableLiveData<FastState> by lazy {
         MutableLiveData<FastState>()
     }
     val fastStart: MutableLiveData<Long?> by lazy {
@@ -24,23 +25,29 @@ class MainViewModel : ViewModel() {
         MutableLiveData<Array<Fast>>()
     }
 
+    private val model: MainModel = MainModel.getModelInstance(application)
+
+    val reminderManager = ReminderManager(application)
+
     fun checkState() {  // TODO: problematic, refactor
         viewModelScope.launch {
-            val ongoing = MainModel.hasOngoingFast()
-            if (ongoing) {
-                fastStart.value = MainModel.getOngoingFastStart()
-                buttonState.postValue(FastState.FAST)
-            } else {
-                fastStart.value = null
-                buttonState.postValue(FastState.EAT)
-            }
-            fastOngoing = ongoing
-
-            targetDuration.value = when (MainModel.targetDuration) {
-                null -> MainModel.getTargetDurationFromDb()
-                else -> MainModel.targetDuration
+            targetDuration.value = when (model.targetDuration) {
+                null -> model.getTargetDurationFromDb()
+                else -> model.targetDuration
             }
             fastLog.value = getAllFinishedFasts()
+
+            lastFastStop = model.getLastFast()?.stopTime
+
+            val ongoing = model.hasOngoingFast()
+            if (ongoing) {
+                fastStart.value = model.getOngoingFastStart()
+                timerState.postValue(FastState.FAST)
+            } else {
+                fastStart.value = null
+                timerState.postValue(FastState.EAT)
+            }
+            fastOngoing = ongoing
         }
     }
 
@@ -63,14 +70,14 @@ class MainViewModel : ViewModel() {
 
     fun changeFastStartTime(newTime: Long) {
         viewModelScope.launch {
-            MainModel.setOngoingFastStart(newTime)
+            model.setOngoingFastStart(newTime)
             checkState()
         }
     }
 
     fun setFastTarget(target: Long) {
         targetDuration.value = target
-        MainModel.targetDuration = target
+        model.targetDuration = target
     }
 
     fun hasOngoingFast(): Boolean? {
@@ -80,18 +87,18 @@ class MainViewModel : ViewModel() {
     fun startStopFast() {
         viewModelScope.launch {
             val currentTime = System.currentTimeMillis()
-            MainModel.startFastAt(currentTime)
+            model.startFastAt(currentTime)
             checkState()
         }
     }
 
     fun saveFast(start: Long, stop: Long) {
         viewModelScope.launch {
-            MainModel.setOngoingFastStart(start)
-            MainModel.stopFastAt(stop)
+            model.setOngoingFastStart(start)
+            model.stopFastAt(stop)
             checkState()
         }
     }
 
-    suspend fun getAllFinishedFasts() = MainModel.getAllFinishedFasts()
+    private suspend fun getAllFinishedFasts() = model.getAllFinishedFasts()
 }
