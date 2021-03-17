@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =
-                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+                    getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
@@ -85,8 +85,9 @@ class MainActivity : AppCompatActivity() {
             when (newState) {
                 FastState.EAT -> {
                     val feedingTimeHours = model.reminderManager.feedingTimeDuration!!
-                    val feedingTimeMillis = feedingTimeHours *60*60*1000
-                    val targetReachedAt = feedingTimeMillis + (model.lastFastStop ?: return@Observer)
+                    val feedingTimeMillis = feedingTimeHours * 60 * 60 * 1000
+                    val targetReachedAt = feedingTimeMillis + (model.lastFastStop
+                            ?: return@Observer)
                     val timeToTarget: Long = targetReachedAt - System.currentTimeMillis()
                     if (timeToTarget > 0) {
                         model.reminderManager

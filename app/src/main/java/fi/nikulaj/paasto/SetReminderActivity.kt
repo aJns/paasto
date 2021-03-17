@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import java.lang.NumberFormatException
 
 class SetReminderActivity : AppCompatActivity() {
     private val TAG = "SetReminderActivity"

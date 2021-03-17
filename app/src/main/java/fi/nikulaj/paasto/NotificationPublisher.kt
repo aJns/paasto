@@ -13,7 +13,7 @@ enum class NotificationType(val type: Int) {
     TimeSinceLastFast(2);
 
     companion object {
-        fun getTypeFromInt(value: Int) = when(value) {
+        fun getTypeFromInt(value: Int) = when (value) {
             1 -> FastTargetReached
             2 -> TimeSinceLastFast
             else -> TODO()
@@ -21,7 +21,7 @@ enum class NotificationType(val type: Int) {
     }
 }
 
-class NotificationPublisher: BroadcastReceiver() {
+class NotificationPublisher : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("NotificationPublisher", "It's notification time motherfucker")
@@ -36,7 +36,7 @@ class NotificationPublisher: BroadcastReceiver() {
         val intent = Intent(context, MainActivity::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        val (title, text) = when(type) {
+        val (title, text) = when (type) {
             NotificationType.FastTargetReached -> {
                 Pair(context.getString(R.string.notification_fast_end_title),
                         context.getString(R.string.notification_fast_end_content, stringParam))

@@ -1,7 +1,6 @@
 package fi.nikulaj.paasto
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import androidx.room.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -14,10 +13,10 @@ enum class FastState {
 
 @Entity
 data class Fast(
-    @PrimaryKey(autoGenerate = true) val uid: Int?,
-    @ColumnInfo(name = "start_time") var startTime: Long,
-    @ColumnInfo(name = "end_time") var stopTime: Long?,
-    @ColumnInfo(name = "target_duration") var targetDuration: Long?
+        @PrimaryKey(autoGenerate = true) val uid: Int?,
+        @ColumnInfo(name = "start_time") var startTime: Long,
+        @ColumnInfo(name = "end_time") var stopTime: Long?,
+        @ColumnInfo(name = "target_duration") var targetDuration: Long?
 )
 
 @Dao
@@ -153,14 +152,14 @@ class MainModel(private val fastDao: FastDao) {
     suspend fun getLastFast(): Fast? = fastDao.getLast()
 
     suspend fun fastTargetReached(): Boolean {
-        if(!hasOngoingFast()) {
+        if (!hasOngoingFast()) {
             return false
         }
         return System.currentTimeMillis() > fastTargetReachedAt()!!
     }
 
     suspend fun fastTargetReachedAt(): Long? {
-        if(!hasOngoingFast()) {
+        if (!hasOngoingFast()) {
             return null
         }
         return getOngoingFastStart() + (targetDuration ?: return null)

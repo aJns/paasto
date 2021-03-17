@@ -37,13 +37,13 @@ class ReminderManager(application: Application) {
 
     private inline fun <reified T : Any> getPreferenceField(id: String, default: T): T? {
         return when (T::class) {
-                Boolean::class -> sharedPref.getBoolean(
-                        id,
-                        default as Boolean
-                ) as T?
-                Int::class -> sharedPref.getInt(id, default as Int) as T?
-                else -> null
-            }
+            Boolean::class -> sharedPref.getBoolean(
+                    id,
+                    default as Boolean
+            ) as T?
+            Int::class -> sharedPref.getInt(id, default as Int) as T?
+            else -> null
+        }
     }
 
     private inline fun <reified T : Any> setPreferenceField(fieldIn: T?, value: T?, id: String): T? {
@@ -73,7 +73,7 @@ class ReminderManager(application: Application) {
         Log.d("ReminderManager", "Scheduling notification...")
 
 
-        when(type) {
+        when (type) {
             NotificationType.FastTargetReached -> if (notifyFastEnd != true) return
             NotificationType.TimeSinceLastFast -> if (notifyFastStart != true) return
         }

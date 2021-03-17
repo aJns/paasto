@@ -16,7 +16,7 @@ class LogAdapter(var fastSet: Array<Fast>) : RecyclerView.Adapter<LogAdapter.Vie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.log_row_item, parent, false)
+                .inflate(R.layout.log_row_item, parent, false)
 
         return ViewHolder(view)
     }

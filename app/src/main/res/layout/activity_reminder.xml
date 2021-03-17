@@ -6,44 +6,22 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/appBar2"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/Theme.Paasto.NoActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/fastEndReminderSwitch"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/feedingTimeTextIn"
+        android:layout_width="68dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:textColor="@color/textOnBackground"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        android:ems="10"
+        android:gravity="right"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textColor="@color/primary_enabled_selector"
+        app:backgroundTint="@color/primaryLight"
+        app:layout_constraintBottom_toBottomOf="@+id/feedingTimeLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/fast_end_notify"
-        android:textColor="@color/textOnBackground"
-        android:textSize="@dimen/textM"
-        app:layout_constraintEnd_toStartOf="@+id/fastEndReminderSwitch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar2" />
+        app:layout_constraintTop_toTopOf="@+id/feedingTimeLabel"
+        tools:text="420" />
 
     <TextView
         android:id="@+id/textView7"
@@ -61,19 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/fastStartReminderSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:textColor="@color/textOnBackground"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
-        app:splitTrack="false" />
-
     <TextView
         android:id="@+id/feedingTimeLabel"
         android:layout_width="0dp"
@@ -90,21 +55,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <EditText
-        android:id="@+id/feedingTimeTextIn"
-        android:layout_width="68dp"
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/fast_end_notify"
+        android:textColor="@color/textOnBackground"
+        android:textSize="@dimen/textM"
+        app:layout_constraintEnd_toStartOf="@+id/fastEndReminderSwitch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar2" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/fastEndReminderSwitch"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:ems="10"
-        android:gravity="right"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:textColor="@color/primary_enabled_selector"
-        app:backgroundTint="@color/primaryLight"
-        app:layout_constraintBottom_toBottomOf="@+id/feedingTimeLabel"
+        android:textColor="@color/textOnBackground"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/feedingTimeLabel"
-        tools:text="420" />
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/fastStartReminderSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:textColor="@color/textOnBackground"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:splitTrack="false" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/appBar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.Paasto.NoActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

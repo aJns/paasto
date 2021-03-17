@@ -49,8 +49,8 @@ class TimerFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_timer, container, false)
@@ -130,13 +130,13 @@ class TimerFragment : Fragment() {
 
     private fun updateTargetReachedTime() {
         val targetReachedAt =
-            when (targetTime) {
-                null -> null
-                else -> when (fastStart) {
-                    null -> System.currentTimeMillis() + targetTime!!
-                    else -> fastStart!! + targetTime!!
+                when (targetTime) {
+                    null -> null
+                    else -> when (fastStart) {
+                        null -> System.currentTimeMillis() + targetTime!!
+                        else -> fastStart!! + targetTime!!
+                    }
                 }
-            }
         targetReachedView!!.text = getDateStringFromMillis(requireActivity(), targetReachedAt)
     }
 

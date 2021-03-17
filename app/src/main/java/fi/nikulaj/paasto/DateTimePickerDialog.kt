@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentManager
 import java.util.*
 
 class DateTimePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener,
-    TimePickerDialog.OnTimeSetListener {
+        TimePickerDialog.OnTimeSetListener {
 
     private var callback: ((Long) -> Unit)? = null
 
@@ -30,7 +30,7 @@ class DateTimePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
 
         datePicker = DatePickerDialog(requireActivity(), this, year, month, day)
         timePicker =
-            TimePickerDialog(activity, this, hour, min, DateFormat.is24HourFormat(activity))
+                TimePickerDialog(activity, this, hour, min, DateFormat.is24HourFormat(activity))
 
         return datePicker
     }
@@ -52,10 +52,10 @@ class DateTimePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
     }
 
     fun showWithCallback(
-        fragmentManager: FragmentManager,
-        tag: String?,
-        defaultTime: Long,
-        callback: (Long) -> Unit
+            fragmentManager: FragmentManager,
+            tag: String?,
+            defaultTime: Long,
+            callback: (Long) -> Unit
     ) {
         cal.timeInMillis = defaultTime
         show(fragmentManager, tag)
