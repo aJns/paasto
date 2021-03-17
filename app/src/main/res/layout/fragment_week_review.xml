@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundLight">
+
+    <TextView
+        android:id="@+id/last_7_fasts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/last_7_fast_title"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/weekDay1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:textColor="@color/textOnBackground"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/weekDay2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_7_fasts"
+        tools:text="WD" />
+
+    <TextView
+        android:id="@+id/weekDay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textOnBackground"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/weekDay3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weekDay1"
+        app:layout_constraintTop_toTopOf="@+id/weekDay1"
+        tools:text="WD" />
+
+    <TextView
+        android:id="@+id/weekDay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textOnBackground"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/weekDay4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weekDay2"
+        app:layout_constraintTop_toTopOf="@+id/weekDay2"
+        tools:text="WD" />
+
+    <TextView
+        android:id="@+id/weekDay4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textOnBackground"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/weekDay5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weekDay3"
+        app:layout_constraintTop_toTopOf="@+id/weekDay3"
+        tools:text="WD" />
+
+    <TextView
+        android:id="@+id/weekDay5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textOnBackground"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/weekDay6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weekDay4"
+        app:layout_constraintTop_toTopOf="@+id/weekDay4"
+        tools:text="WD" />
+
+    <TextView
+        android:id="@+id/weekDay6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textOnBackground"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/weekDay7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weekDay5"
+        app:layout_constraintTop_toTopOf="@+id/weekDay5"
+        tools:text="WD" />
+
+    <TextView
+        android:id="@+id/weekDay7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textOnBackground"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weekDay6"
+        app:layout_constraintTop_toTopOf="@+id/weekDay6"
+        tools:text="WD" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

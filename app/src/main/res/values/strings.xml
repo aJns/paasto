@@ -30,4 +30,6 @@
     <string name="start_reminder">Show fast start reminder</string>
     <string name="notification_channel_description" translatable="false">Paasto reminder notifications</string>
     <string name="progress">Progress</string>
+    <string name="last_7_fast_title">Last 7 fasts</string>
+    <string name="hour_min_duration">%1$02d:%2$02d</string>
 </resources>

@@ -5,6 +5,8 @@
     <color name="primaryDark">#97bc00</color>
     <color name="textOnPrimary">#000000</color>
     <color name="background">#342E37</color>
+    <color name="backgroundLight">#5e5761</color>
+    <color name="backgroundDark">#0e0411</color>
     <color name="textOnBackground">#ffffff</color>
     <color name="dangerBad">#FF312E</color>
     <color name="warning">#FF8811</color>
