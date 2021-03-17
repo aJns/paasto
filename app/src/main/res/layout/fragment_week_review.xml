@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/last_7_fast_title"
+        android:text="@string/last_5_fast_title"
         android:textColor="@color/primary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,89 +21,79 @@
 
     <TextView
         android:id="@+id/weekDay1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
-        android:textColor="@color/textOnBackground"
+        android:background="@color/primaryLight"
+        android:gravity="center"
+        android:textColor="@color/backgroundDark"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/weekDay2"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/last_7_fasts"
-        tools:text="WD" />
+        tools:text="12:34" />
 
     <TextView
         android:id="@+id/weekDay2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textOnBackground"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@color/primaryLight"
+        android:gravity="center"
+        android:textColor="@color/backgroundDark"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/weekDay3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/weekDay1"
         app:layout_constraintTop_toTopOf="@+id/weekDay1"
-        tools:text="WD" />
+        tools:text="12:34" />
 
     <TextView
         android:id="@+id/weekDay3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textOnBackground"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@color/primaryLight"
+        android:gravity="center"
+        android:textColor="@color/backgroundDark"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/weekDay4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/weekDay2"
         app:layout_constraintTop_toTopOf="@+id/weekDay2"
-        tools:text="WD" />
+        tools:text="12:34" />
 
     <TextView
         android:id="@+id/weekDay4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textOnBackground"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@color/primaryLight"
+        android:gravity="center"
+        android:textColor="@color/backgroundDark"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/weekDay5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/weekDay3"
         app:layout_constraintTop_toTopOf="@+id/weekDay3"
-        tools:text="WD" />
+        tools:text="12:34" />
 
     <TextView
         android:id="@+id/weekDay5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textOnBackground"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/weekDay6"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/weekDay4"
-        app:layout_constraintTop_toTopOf="@+id/weekDay4"
-        tools:text="WD" />
-
-    <TextView
-        android:id="@+id/weekDay6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textOnBackground"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/weekDay7"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/weekDay5"
-        app:layout_constraintTop_toTopOf="@+id/weekDay5"
-        tools:text="WD" />
-
-    <TextView
-        android:id="@+id/weekDay7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textOnBackground"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/primaryLight"
+        android:gravity="center"
+        android:textColor="@color/backgroundDark"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/weekDay6"
-        app:layout_constraintTop_toTopOf="@+id/weekDay6"
-        tools:text="WD" />
+        app:layout_constraintStart_toEndOf="@+id/weekDay4"
+        app:layout_constraintTop_toTopOf="@+id/weekDay4"
+        tools:text="12:34" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

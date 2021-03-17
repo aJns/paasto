@@ -31,21 +31,21 @@ class WeekFragment : Fragment() {
             view.findViewById(R.id.weekDay3),
             view.findViewById(R.id.weekDay4),
             view.findViewById(R.id.weekDay5),
-            view.findViewById(R.id.weekDay6),
-            view.findViewById(R.id.weekDay7),
         )
 
         val logObserver = Observer<Array<Fast>> { newArr ->
             val revArr = newArr.reversedArray()
+            val loopCount = (textViews.size-1)
 
-            for (i in 0..6) {
+            for (i in 0..loopCount) {
                 if (i < revArr.size) {
                     val duration = revArr[i].stopTime!! - revArr[i].startTime
                     val (h, m, _) = millisToHMS(duration)
                     textViews[i].text = requireActivity().getString(R.string.hour_min_duration, h, m)
+                    textViews[i].visibility = View.VISIBLE
 
                     if (revArr[i].targetDuration != null) {
-                        textViews[i].setTextColor(
+                        textViews[i].setBackgroundColor(
                             if (duration >= revArr[i].targetDuration!!) {
                                 ContextCompat.getColor(requireContext(), R.color.primaryDark)
                             } else {
@@ -53,6 +53,8 @@ class WeekFragment : Fragment() {
                             }
                         )
                     }
+                } else {
+                    textViews[i].visibility = View.INVISIBLE
                 }
             }
         }

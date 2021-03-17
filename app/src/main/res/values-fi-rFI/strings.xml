@@ -25,5 +25,5 @@
     <string name="notification_fast_start_title">Aika aloittaa paastosi</string>
     <string name="notification_fast_start_content">Paastosi loppumisesta on kulunut %1$s</string>
     <string name="progress">Edistyminen</string>
-    <string name="last_7_fast_title">Viimeiset 7 paastoa</string>
+    <string name="last_5_fast_title">Viimeiset 7 paastoa</string>
 </resources>
